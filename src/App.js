@@ -1,3 +1,9 @@
-const App = () => <div className="app">Pin View</div>;
+import Header from '@/layouts/Header';
+
+const App = () => (
+  <>
+    <Header />
+  </>
+);
 
 export default App;

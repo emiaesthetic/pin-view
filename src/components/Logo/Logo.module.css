@@ -1,0 +1,37 @@
+.logo {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--width);
+  height: var(--height);
+  border-radius: var(--border-radius-md);
+  color: var(--accent);
+  transition-property: background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+@media (hover: hover) {
+  .logo:hover {
+    background-color: var(--gray);
+  }
+}
+
+@media (hover: none) {
+  .logo:active {
+    background-color: var(--gray);
+  }
+}
+
+.logo:focus {
+  outline: none;
+}
+
+.logo:focus-visible {
+  outline: var(--outline);
+}
+
+.logo svg {
+  width: 70%;
+  height: 70%;
+}

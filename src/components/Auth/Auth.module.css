@@ -1,0 +1,55 @@
+.auth {
+  --color: var(--gray-lighter);
+  --backgroundColor: var(--accent);
+  --hoverColor: currentColor;
+  --hoverBgColor: var(--accent-light);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 20px;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--color);
+  background-color: var(--backgroundColor);
+  transition-property: background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+@media (hover: hover) {
+  .auth:hover {
+    background-color: var(--hoverBgColor);
+  }
+}
+
+@media (hover: none) {
+  .auth:active {
+    background-color: var(--hoverBgColor);
+  }
+}
+
+.auth:focus {
+  outline: none;
+}
+
+.auth:focus-visible {
+  outline: var(--outline);
+}
+
+.img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+}
+
+@media (max-width: 768px) {
+  .img {
+    width: 28px;
+    height: 28px;
+  }
+}
