@@ -1,12 +1,12 @@
 import {
-  API_URL_AUTH,
+  AUTH_URL,
   ACCESS_KEY,
   REDIRECT_URI,
   RESPONSE_TYPE,
   SCOPE,
-} from '@/config/config';
+} from './config';
 
-const authUrl = new URL(API_URL_AUTH);
+const authUrl = new URL(AUTH_URL);
 
 authUrl.searchParams.append('client_id', ACCESS_KEY);
 authUrl.searchParams.append('redirect_uri', REDIRECT_URI);

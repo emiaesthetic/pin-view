@@ -2,16 +2,11 @@ import PropTypes from 'prop-types';
 
 import style from './Button.module.css';
 
-export const Button = ({ children, modifier, type, ariaLabel, onClick }) => {
+export const Button = ({ children, modifier, ...props }) => {
   const buttonClass = `${style.button} ${modifier ? style[modifier] : ''}`;
 
   return (
-    <button
-      className={buttonClass}
-      type={type ? type : 'button'}
-      aria-label={ariaLabel}
-      onClick={onClick}
-    >
+    <button className={buttonClass} {...props}>
       {children}
     </button>
   );
