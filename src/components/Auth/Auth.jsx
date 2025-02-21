@@ -1,7 +1,7 @@
-import Button from '../Button';
-
 import style from './Auth.module.css';
+import { ReactComponent as LoginIcon } from './img/login.svg';
 
+import Button from '@/components/Button';
 import authUrl from '@/config/authConfig';
 import useAuth from '@/hooks/useAuth';
 
@@ -10,7 +10,7 @@ export const Auth = () => {
 
   if (username && img) {
     return (
-      <Button type="button" title={username}>
+      <Button kind="buttonIcon" type="button" title={username}>
         <img
           className={style.img}
           src={img}
@@ -22,7 +22,7 @@ export const Auth = () => {
 
   return (
     <a className={style.auth} href={authUrl}>
-      Log in
+      <LoginIcon />
     </a>
   );
 };

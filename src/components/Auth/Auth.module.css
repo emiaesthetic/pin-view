@@ -1,19 +1,15 @@
 .auth {
-  --color: var(--gray-lighter);
-  --backgroundColor: var(--accent);
-  --hoverColor: currentColor;
-  --hoverBgColor: var(--accent-light);
-
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 20px;
+  width: var(--width);
+  height: var(--height);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-base);
   border: none;
   border-radius: var(--border-radius-md);
-  color: var(--color);
-  background-color: var(--backgroundColor);
+  color: var(--accent);
+  background-color: transparent;
   transition-property: background-color;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
@@ -21,13 +17,13 @@
 
 @media (hover: hover) {
   .auth:hover {
-    background-color: var(--hoverBgColor);
+    background-color: var(--gray);
   }
 }
 
 @media (hover: none) {
   .auth:active {
-    background-color: var(--hoverBgColor);
+    background-color: var(--gray);
   }
 }
 
