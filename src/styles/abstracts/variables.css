@@ -16,6 +16,10 @@
   --accent: rgb(255 77 77);
   --accent-dark: rgb(255 68 68);
 
+  --success: #00cd67;
+  --warning: #ffa500;
+  --error: var(--accent);
+
   --font-family: 'Gilroy', sans-serif;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -45,6 +49,11 @@
 
 @media (max-width: 768px) {
   :root {
+    --border-radius-xlg: 28px;
+    --border-radius-lg: 16px;
+    --border-radius-md: 10px;
+    --border-radius-sm: 4px;
+
     --padding-layout: 20px;
 
     --width: 36px;

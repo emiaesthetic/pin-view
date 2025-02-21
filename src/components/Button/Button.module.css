@@ -4,6 +4,7 @@
   --hoverColor: currentColor;
   --hoverBgColor: var(--gray);
 
+  flex-shrink: 0;
   border: none;
   border-radius: var(--border-radius-md);
   color: var(--color);
