@@ -1,4 +1,8 @@
 .auth {
+  position: relative;
+}
+
+.login {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -16,23 +20,28 @@
 }
 
 @media (hover: hover) {
-  .auth:hover {
+  .login:hover {
     background-color: var(--gray);
   }
 }
 
 @media (hover: none) {
-  .auth:active {
+  .login:active {
     background-color: var(--gray);
   }
 }
 
-.auth:focus {
+.login:focus {
   outline: none;
 }
 
-.auth:focus-visible {
+.login:focus-visible {
   outline: var(--outline);
+}
+
+.login svg {
+  width: 32px;
+  height: 32px;
 }
 
 .img {
@@ -45,7 +54,12 @@
 
 @media (max-width: 768px) {
   .img {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .login svg {
+    width: 26px;
+    height: 26px;
   }
 }

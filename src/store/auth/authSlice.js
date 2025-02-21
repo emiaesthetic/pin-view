@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  username: null,
-  img: null,
+  user: null,
   error: null,
   loading: false,
 };
@@ -16,8 +15,7 @@ const authSlice = createSlice({
       state.loading = true;
     },
     authRequestSuccess: (state, action) => {
-      state.username = action.payload.username;
-      state.img = action.payload.img;
+      state.user = action.payload;
       state.loading = false;
     },
     authRequestError: (state, action) => {
@@ -25,8 +23,7 @@ const authSlice = createSlice({
       state.loading = false;
     },
     authLogout: state => {
-      state.username = null;
-      state.img = null;
+      state.user = null;
       state.error = null;
       state.loading = false;
     },

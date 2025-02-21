@@ -15,7 +15,11 @@ function* fetchAuth() {
         Authorization: `Bearer ${token}`,
       },
     });
-    const { username } = currentResponse.data;
+    const {
+      username,
+      email,
+      links: { html: link },
+    } = currentResponse.data;
 
     const userResponse = yield call(axios.get, `${API_URL}/users/${username}`, {
       headers: {
@@ -26,7 +30,7 @@ function* fetchAuth() {
       profile_image: { medium: img },
     } = userResponse.data;
 
-    yield put(authRequestSuccess({ username, img }));
+    yield put(authRequestSuccess({ username, email, link, img }));
   } catch (error) {
     yield put(authRequestError(error.message));
   }

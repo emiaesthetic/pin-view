@@ -1,28 +1,52 @@
+import { useState } from 'react';
+
 import style from './Auth.module.css';
 import { ReactComponent as LoginIcon } from './img/login.svg';
 
+import UserMenu from '@/components/Auth/UserMenu';
 import Button from '@/components/Button';
 import authUrl from '@/config/authConfig';
 import useAuth from '@/hooks/useAuth';
 
 export const Auth = () => {
-  const { username, img } = useAuth();
+  const { user, clearAuth } = useAuth();
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-  if (username && img) {
+  const handleLogout = () => {
+    setMenuIsOpen(false);
+    clearAuth();
+  };
+
+  const renderContent = () => {
+    if (user) {
+      return (
+        <>
+          <Button
+            kind="buttonIcon"
+            title={user.username}
+            onClick={() => setMenuIsOpen(!menuIsOpen)}
+          >
+            <img
+              className={style.img}
+              src={user.img}
+              alt={`Profile photo of ${user.username}`}
+            />
+          </Button>
+          {menuIsOpen && <UserMenu user={user} onLogout={handleLogout} />}
+        </>
+      );
+    }
+
     return (
-      <Button kind="buttonIcon" type="button" title={username}>
-        <img
-          className={style.img}
-          src={img}
-          alt={`Profile photo of ${username}`}
-        />
-      </Button>
+      <a
+        className={style.login}
+        href={authUrl}
+        aria-label="User Authentication"
+      >
+        <LoginIcon aria-hidden="true" />
+      </a>
     );
-  }
+  };
 
-  return (
-    <a className={style.auth} href={authUrl}>
-      <LoginIcon />
-    </a>
-  );
+  return <div className={style.auth}>{renderContent()}</div>;
 };

@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { authRequest } from '@/store/auth/authSlice';
+import { authRequest, authLogout } from '@/store/auth/authSlice';
+import { clearToken } from '@/store/token/tokenSlice';
 
 const useAuth = () => {
-  const username = useSelector(state => state.auth.username);
-  const img = useSelector(state => state.auth.img);
+  const { user, error } = useSelector(state => state.auth);
   const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
 
@@ -16,7 +16,12 @@ const useAuth = () => {
     }
   }, [token, dispatch]);
 
-  return { username, img };
+  const clearAuth = () => {
+    dispatch(clearToken());
+    dispatch(authLogout());
+  };
+
+  return { user, error, clearAuth };
 };
 
 export default useAuth;
