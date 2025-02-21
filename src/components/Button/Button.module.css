@@ -4,18 +4,11 @@
   --hoverColor: currentColor;
   --hoverBgColor: var(--gray);
 
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: var(--width);
-  height: var(--height);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-base);
   border: none;
   border-radius: var(--border-radius-md);
   color: var(--color);
   background-color: var(--backgroundColor);
-  transition-property: background-color;
+  transition-property: color, background-color;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
 }
@@ -40,24 +33,41 @@
   outline: var(--outline);
 }
 
+.buttonText {
+  display: block;
+  padding: 12px 20px;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+}
+
+.buttonIcon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--width);
+  height: var(--height);
+}
+
 .light {
   --color: var(--gray-darker);
   --backgroundColor: var(--gray-lighter);
   --hoverBgColor: var(--gray-light);
 }
 
+.dark {
+  --color: var(--gray-lighter);
+  --backgroundColor: var(--gray-darker);
+  --hoverBgColor: var(--gray-dark);
+}
+
 .accent {
   --color: var(--gray-lighter);
   --backgroundColor: var(--accent);
   --hoverBgColor: var(--accent-light);
-
-  width: unset;
-  height: unset;
-  padding: 12px 20px;
 }
 
 @media (max-width: 768px) {
-  .accent {
+  .buttonText {
     padding: 10px 16px;
   }
 }

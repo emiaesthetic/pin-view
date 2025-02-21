@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 
 import style from './Button.module.css';
 
-export const Button = ({ children, modifier, ...props }) => {
-  const buttonClass = `${style.button} ${modifier ? style[modifier] : ''}`;
+export const Button = ({ children, kind, color, ...props }) => {
+  const buttonClass = `${style.button} ${style[kind]} ${color ? style[color] : ''}`;
 
   return (
     <button className={buttonClass} {...props}>
@@ -14,8 +14,6 @@ export const Button = ({ children, modifier, ...props }) => {
 
 Button.propTypes = {
   children: PropTypes.node,
-  modifier: PropTypes.string,
-  type: PropTypes.string,
-  ariaLabel: PropTypes.string,
-  onClick: PropTypes.func,
+  kind: PropTypes.string,
+  color: PropTypes.string,
 };
