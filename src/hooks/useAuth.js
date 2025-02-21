@@ -6,9 +6,16 @@ import { authRequest, authLogout } from '@/store/auth/authSlice';
 import { clearToken } from '@/store/token/tokenSlice';
 
 const useAuth = () => {
-  const { user, error } = useSelector(state => state.auth);
-  const token = useSelector(state => state.token.token);
+  const { user, error: authError } = useSelector(state => state.auth);
+  const { token, error: tokenError } = useSelector(state => state.token);
+  const error = tokenError || authError || null;
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) {
+      dispatch(clearToken());
+    }
+  }, [error, dispatch]);
 
   useEffect(() => {
     if (token) {
