@@ -1,0 +1,25 @@
+.masonry {
+  --counter: 5;
+  --gap: 16px;
+
+  column-count: var(--counter);
+  column-gap: var(--gap);
+}
+
+@media (max-width: 1024px) {
+  .masonry {
+    --counter: 4;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonry {
+    --counter: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry {
+    --counter: 2;
+  }
+}

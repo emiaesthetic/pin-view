@@ -49,6 +49,25 @@
   height: var(--height);
 }
 
+.buttonFavorite {
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
+  z-index: 11;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  opacity: var(--opacity);
+  transition-property: opacity;
+}
+
+.buttonFavorite:focus-visible {
+  outline: none;
+  background-color: var(--gray-light);
+}
+
 .light {
   --color: var(--gray-darker);
   --backgroundColor: var(--gray-lighter);
@@ -67,8 +86,19 @@
   --hoverBgColor: var(--accent-light);
 }
 
+.favorite {
+  --color: var(--accent);
+  --backgroundColor: var(--gray-lighter);
+  --hoverBgColor: var(--gray-light);
+}
+
 @media (max-width: 768px) {
   .buttonText {
     padding: 10px 16px;
+  }
+
+  .buttonFavorite {
+    width: 32px;
+    height: 32px;
   }
 }
