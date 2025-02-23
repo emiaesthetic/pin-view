@@ -12,11 +12,12 @@ import transformPhotoData from '@/utils/transformPhotoData';
 
 function* fetchPhotos() {
   const token = yield select(state => state.token.token);
+  const currentPage = yield select(state => state.photos.currentPage);
 
   try {
     const request = yield axios(`${API_URL}/photos`, {
       params: {
-        page: 1,
+        page: currentPage,
         per_page: 30,
         orderBy: 'latest',
       },
@@ -26,7 +27,9 @@ function* fetchPhotos() {
     });
 
     const data = request.data.map(transformPhotoData);
-    yield put(photosRequestSuccess(data));
+    const totalPages = request.headers['x-total'];
+
+    yield put(photosRequestSuccess({ data, totalPages }));
   } catch (error) {
     yield put(photoRequestError(error.message));
   }
