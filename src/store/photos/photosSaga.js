@@ -11,6 +11,7 @@ import { API_URL, ACCESS_KEY } from '@/config/config';
 import transformPhotoData from '@/utils/transformPhotoData';
 
 function* fetchPhotos() {
+  // FIXME: photo update after authorization
   const token = yield select(state => state.token.token);
   const currentPage = yield select(state => state.photos.currentPage);
 

@@ -6,10 +6,10 @@ import Creator from '@/components/Creator';
 import Thumbnail from '@/components/Thumbnail';
 
 export const Item = ({ photo, user }) => (
-  <li className={style.item}>
+  <div className={style.item} role="listitem">
     <Thumbnail {...photo} />
     <Creator {...user} />
-  </li>
+  </div>
 );
 
 Item.propTypes = {

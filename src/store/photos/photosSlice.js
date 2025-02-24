@@ -17,10 +17,12 @@ const photosSlice = createSlice({
       state.loading = true;
     },
     photosRequestSuccess: (state, action) => {
-      state.data = [...state.data, ...action.payload.data];
+      const { data, totalPages } = action.payload;
+
+      state.data = state.currentPage === 1 ? data : [...state.data, ...data];
       state.loading = false;
       state.currentPage += 1;
-      state.totalPages = action.payload.totalPages;
+      state.totalPages = totalPages;
     },
     photoRequestError: (state, action) => {
       state.data = [];

@@ -1,0 +1,12 @@
+.masonry {
+  --offset: 16px;
+
+  display: flex;
+  margin-left: calc(var(--offset) * -1);
+  width: auto;
+}
+
+.column > div {
+  padding-left: var(--offset);
+  background-clip: padding-box;
+}
