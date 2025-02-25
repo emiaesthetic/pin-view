@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { photosRequest } from '@/store/photos/photosSlice';
+import { photosRequest, resetPhotos } from '@/store/photos/photosSlice';
 
 const usePhotos = () => {
   const { data, error, loading, currentPage, totalPages } = useSelector(
@@ -12,8 +12,9 @@ const usePhotos = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(resetPhotos());
     dispatch(photosRequest());
-  }, [token, dispatch]);
+  }, [token, data, dispatch]);
 
   return { data, error, loading, currentPage, totalPages };
 };

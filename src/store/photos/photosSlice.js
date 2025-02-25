@@ -31,10 +31,21 @@ const photosSlice = createSlice({
       state.currentPage = 1;
       state.totalPages = null;
     },
+    resetPhotos: state => {
+      state.data = [];
+      state.error = null;
+      state.loading = false;
+      state.currentPage = 1;
+      state.totalPages = null;
+    },
   },
 });
 
-export const { photoRequestError, photosRequest, photosRequestSuccess } =
-  photosSlice.actions;
+export const {
+  photoRequestError,
+  photosRequest,
+  photosRequestSuccess,
+  resetPhotos,
+} = photosSlice.actions;
 
 export default photosSlice.reducer;
