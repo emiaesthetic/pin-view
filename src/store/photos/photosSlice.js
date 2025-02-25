@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { reactionRequestSuccess } from '../reaction/reactionSlice';
 
+import updatePhoto from '@/utils/updatePhoto';
+
 const initialState = {
   data: [],
   error: null,
@@ -43,16 +45,7 @@ const photosSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(reactionRequestSuccess, (state, action) => {
-      const { id, liked } = action.payload;
-
-      const updatePhoto = photoData => {
-        if (photoData.id === id) {
-          return { ...photoData, photo: { ...photoData.photo, liked } };
-        }
-        return photoData;
-      };
-
-      state.data = state.data.map(updatePhoto);
+      state.data = state.data.map(photo => updatePhoto(photo, action.payload));
     });
   },
 });

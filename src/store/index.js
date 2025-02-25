@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import authReducer from './auth/authSlice';
 import tokenMiddleware from './middleware/tokenMiddleware';
+import photoReducer from './photo/photoSlice';
 import photosReducer from './photos/photosSlice';
 import reactionReducer from './reaction/reactionSlice';
 import rootSaga from './saga';
@@ -14,6 +15,7 @@ const store = configureStore({
   reducer: {
     token: tokenReducer,
     auth: authReducer,
+    photo: photoReducer,
     photos: photosReducer,
     reaction: reactionReducer,
   },

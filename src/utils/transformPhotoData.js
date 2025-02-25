@@ -5,6 +5,7 @@ const transformPhotoData = photo => ({
     description: photo.description,
     thumb: photo.urls.small,
     regular: photo.urls.regular,
+    download: photo.urls.full,
     liked: photo.liked_by_user,
     published: photo.created_at,
     color: photo.color,

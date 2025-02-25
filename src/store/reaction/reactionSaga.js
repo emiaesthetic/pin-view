@@ -23,10 +23,10 @@ function* fetchReaction(action) {
       },
     });
     const {
-      photo: { id, liked_by_user: liked },
+      photo: { id, likes, liked_by_user: liked },
     } = request.data;
 
-    yield put(reactionRequestSuccess({ id, liked }));
+    yield put(reactionRequestSuccess({ id, likes, liked }));
   } catch (error) {
     yield put(reactionRequestError(error.message));
   }

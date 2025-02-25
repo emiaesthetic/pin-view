@@ -1,12 +1,15 @@
+import { Routes, Route } from 'react-router-dom';
+
 import style from './Main.module.css';
 
 import Gallery from '@/layouts/Gallery';
-import Layout from '@/layouts/Layout';
+import Pin from '@/layouts/Pin';
 
 export const Main = () => (
   <main className={style.main}>
-    <Layout>
-      <Gallery />
-    </Layout>
+    <Routes>
+      <Route path="/" element={<Gallery />} />
+      <Route path="/photo/:id" element={<Pin />} />
+    </Routes>
   </main>
 );

@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as FavoriteIcon } from './img/favorite.svg';
 import style from './Thumbnail.module.css';
 
 import Button from '@/components/Button';
 
-export const Thumbnail = ({ thumb, description, liked, onLike }) => (
+export const Thumbnail = ({ id, thumb, description, liked, onLike }) => (
   <div className={style.thumbnail}>
-    <a className={style.link} href="#photo">
+    <Link className={style.link} to={`/photo/${id}`}>
       <img
         className={style.img}
         src={thumb}
@@ -16,7 +17,7 @@ export const Thumbnail = ({ thumb, description, liked, onLike }) => (
         loading="lazy"
         alt={description}
       />
-    </a>
+    </Link>
 
     <Button
       kind="buttonFavorite"
@@ -30,6 +31,7 @@ export const Thumbnail = ({ thumb, description, liked, onLike }) => (
 );
 
 Thumbnail.propTypes = {
+  id: PropTypes.string,
   thumb: PropTypes.string,
   description: PropTypes.string,
   liked: PropTypes.bool,
