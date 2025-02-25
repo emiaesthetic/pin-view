@@ -5,7 +5,7 @@ import style from './Thumbnail.module.css';
 
 import Button from '@/components/Button';
 
-export const Thumbnail = ({ thumb, description, liked }) => (
+export const Thumbnail = ({ thumb, description, liked, onLike }) => (
   <div className={style.thumbnail}>
     <a className={style.link} href="#photo">
       <img
@@ -22,6 +22,7 @@ export const Thumbnail = ({ thumb, description, liked }) => (
       kind="buttonFavorite"
       color={liked ? 'favorite' : 'light'}
       aria-label="Add to favorites"
+      onClick={onLike}
     >
       <FavoriteIcon className={style.icon} aria-hidden="true" />
     </Button>
@@ -32,4 +33,5 @@ Thumbnail.propTypes = {
   thumb: PropTypes.string,
   description: PropTypes.string,
   liked: PropTypes.bool,
+  onLike: PropTypes.func,
 };

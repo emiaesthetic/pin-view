@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { reactionRequestSuccess } from '../reaction/reactionSlice';
+
 const initialState = {
   data: [],
   error: null,
@@ -38,6 +40,20 @@ const photosSlice = createSlice({
       state.currentPage = 1;
       state.totalPages = null;
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(reactionRequestSuccess, (state, action) => {
+      const { id, liked } = action.payload;
+
+      const updatePhoto = photoData => {
+        if (photoData.id === id) {
+          return { ...photoData, photo: { ...photoData.photo, liked } };
+        }
+        return photoData;
+      };
+
+      state.data = state.data.map(updatePhoto);
+    });
   },
 });
 

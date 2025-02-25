@@ -9,6 +9,7 @@ import Item from './Item';
 import Error from '@/components/Error';
 import usePhotos from '@/hooks/usePhotos';
 import { photosRequest } from '@/store/photos/photosSlice';
+import { reactionRequest } from '@/store/reaction/reactionSlice';
 
 export const Gallery = () => {
   const { data, error, currentPage, totalPages } = usePhotos();
@@ -41,6 +42,10 @@ export const Gallery = () => {
     return () => observer.disconnect();
   }, [data.length, dispatch]);
 
+  const handleLike = (photoID, currentLikeState) => {
+    dispatch(reactionRequest({ photoID, currentLikeState }));
+  };
+
   if (error) return <Error message={error} />;
 
   if (!data.length) return null;
@@ -53,7 +58,11 @@ export const Gallery = () => {
       role="list"
     >
       {data.map(photoData => (
-        <Item key={photoData.id} {...photoData} />
+        <Item
+          key={photoData.id}
+          {...photoData}
+          onLike={() => handleLike(photoData.id, photoData.photo.liked)}
+        />
       ))}
 
       {currentPage < totalPages && <div ref={triggerRef}></div>}

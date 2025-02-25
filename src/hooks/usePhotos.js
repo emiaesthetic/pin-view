@@ -14,7 +14,7 @@ const usePhotos = () => {
   useEffect(() => {
     dispatch(resetPhotos());
     dispatch(photosRequest());
-  }, [token, data, dispatch]);
+  }, [token, dispatch]);
 
   return { data, error, loading, currentPage, totalPages };
 };

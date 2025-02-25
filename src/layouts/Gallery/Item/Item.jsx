@@ -5,9 +5,9 @@ import style from './Item.module.css';
 import Creator from '@/components/Creator';
 import Thumbnail from '@/components/Thumbnail';
 
-export const Item = ({ photo, user }) => (
+export const Item = ({ photo, user, onLike }) => (
   <div className={style.item} role="listitem">
-    <Thumbnail {...photo} />
+    <Thumbnail {...photo} onLike={onLike} />
     <Creator {...user} />
   </div>
 );
@@ -15,4 +15,5 @@ export const Item = ({ photo, user }) => (
 Item.propTypes = {
   photo: PropTypes.object,
   user: PropTypes.object,
+  onLike: PropTypes.func,
 };
