@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import style from './Pin.module.css';
 import PinButtonsGroup from './PinButtonsGroup';
@@ -38,9 +38,13 @@ export const Pin = () => {
   const { id } = useParams();
   const { id: photoID, photo, user } = usePhoto(id);
   const { handleLike } = useLike();
-
   const contentRef = useRef(null);
   const { headerHeight } = useContext(headerHeightContext);
+  const navigate = useNavigate();
+
+  const handleComeBack = () => {
+    navigate('/');
+  };
 
   useEffect(() => {
     const adjustHeight = () => {
@@ -67,11 +71,11 @@ export const Pin = () => {
   return (
     <article className={style.pin}>
       <Layout>
-        <h1 className="visually-hidden">Pin</h1>
+        <h1 className="visually-hidden">Pin: {photo?.description}</h1>
 
         <div className={style.content} ref={contentRef}>
           <div className={style.leftColumn}>
-            <PinImage {...photo} />
+            <PinImage {...photo} comeBack={handleComeBack} />
           </div>
 
           <div className={style.rightColumn}>
