@@ -24,35 +24,6 @@
   padding: 20px;
 }
 
-.buttonsGroup {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  column-gap: 12px;
-  margin-left: -12px;
-}
-
-.favorite {
-  display: inline-flex;
-  align-items: center;
-  font-weight: var(--font-weight-bold);
-}
-
-.description {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  column-gap: 12px;
-  margin-left: -6px;
-  font-weight: var(--font-weight-medium);
-}
-
-.comments {
-  flex-basis: 100%;
-  border: 1px solid var(--gray);
-  border-radius: var(--border-radius-lg);
-}
-
 @media (max-width: 768px) {
   .content {
     flex-direction: column;

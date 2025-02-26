@@ -1,0 +1,11 @@
+.comments {
+  flex-basis: 100%;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius-lg);
+}
+
+@media (max-width: 768px) {
+  .comments {
+    display: none;
+  }
+}

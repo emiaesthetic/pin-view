@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { photoRequest } from '@/store/photo/photoSlice';
 
 const usePhoto = photoID => {
-  const { photo } = useSelector(state => state.photo);
+  const { photo: photoData } = useSelector(state => state.photo);
+  const { id, photo, user } = photoData;
   const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
 
@@ -13,7 +14,7 @@ const usePhoto = photoID => {
     dispatch(photoRequest(photoID));
   }, [photoID, token, dispatch]);
 
-  return { photoData: photo };
+  return { id, photo, user };
 };
 
 export default usePhoto;

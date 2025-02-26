@@ -2,18 +2,16 @@ import { useContext, useEffect, useRef } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import CommentForm from './CommentForm';
-import Image from './Image';
-import { ReactComponent as FavoriteIcon } from './img/favorite.svg';
 import style from './Pin.module.css';
+import PinButtonsGroup from './PinButtonsGroup';
+import { PinComments } from './PinComments/PinComments';
+import PinDescription from './PinDescription';
+import PinImage from './PinImage';
 
-import Button from '@/components/Button';
-import Creator from '@/components/Creator';
 import { headerHeightContext } from '@/context/headerHeight';
 import useLike from '@/hooks/useLike';
 import usePhoto from '@/hooks/usePhoto';
 import Layout from '@/layouts/Layout';
-import formatDate from '@/utils/formatDate';
 
 const downloadImage = async path => {
   try {
@@ -38,7 +36,7 @@ const downloadImage = async path => {
 
 export const Pin = () => {
   const { id } = useParams();
-  const { photoData } = usePhoto(id);
+  const { id: photoID, photo, user } = usePhoto(id);
   const { handleLike } = useLike();
 
   const contentRef = useRef(null);
@@ -73,46 +71,18 @@ export const Pin = () => {
 
         <div className={style.content} ref={contentRef}>
           <div className={style.leftColumn}>
-            <Image
-              src={photoData?.photo?.regular}
-              alt={photoData?.photo?.description}
-              style={{ backgroundColor: photoData?.photo?.color }}
-            />
+            <PinImage {...photo} />
           </div>
 
           <div className={style.rightColumn}>
-            <div className={style.buttonsGroup}>
-              <div className={style.favorite}>
-                <Button
-                  kind="buttonIcon"
-                  color={photoData?.photo?.liked ? 'favorite' : 'light'}
-                  aria-label="Add to favorites"
-                  onClick={() =>
-                    handleLike(photoData?.id, photoData?.photo?.liked)
-                  }
-                >
-                  <FavoriteIcon aria-hidden="true" />
-                </Button>
-                <span>{photoData?.photo?.likes}</span>
-              </div>
-              <Button
-                kind="buttonText"
-                color="accent"
-                onClick={() => downloadImage(photoData?.photo?.full)}
-              >
-                Download
-              </Button>
-            </div>
-
-            <div className={style.description}>
-              <Creator {...photoData?.user} />
-              <time dateTime={photoData?.photo?.published}>
-                {formatDate(photoData?.photo?.published)}
-              </time>
-            </div>
-
-            <div className={style.comments}></div>
-            <CommentForm />
+            <PinButtonsGroup
+              id={photoID}
+              onClick={handleLike}
+              onDownload={downloadImage}
+              {...photo}
+            />
+            <PinDescription user={user} published={photo?.published} />
+            <PinComments />
           </div>
         </div>
       </Layout>
