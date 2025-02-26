@@ -3,10 +3,10 @@ import { useEffect, useContext, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 
+import Auth from './Auth';
 import style from './Header.module.css';
+import Logo from './Logo';
 
-import Auth from '@/components/Auth';
-import Logo from '@/components/Logo';
 import { headerHeightContext } from '@/context/headerHeight';
 import Layout from '@/layouts/Layout';
 import { tokenRequest } from '@/store/token/tokenSlice';

@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import style from './Auth.module.css';
 import { ReactComponent as LoginIcon } from './img/login.svg';
+import UserMenu from './UserMenu';
 
-import UserMenu from '@/components/Auth/UserMenu';
 import Button from '@/components/Button';
 import Error from '@/components/Error';
 import authUrl from '@/config/authConfig';
