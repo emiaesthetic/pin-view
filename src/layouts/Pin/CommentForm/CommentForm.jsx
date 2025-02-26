@@ -7,7 +7,7 @@ export const CommentForm = () => (
   <form className={style.form}>
     <input className={style.input} type="text" placeholder="Add comment" />
     <Button kind="buttonComment" type="submit" aria-label="Send comment">
-      <SendIcon aria-hidden="true" />
+      <SendIcon className={style.icon} aria-hidden="true" />
     </Button>
   </form>
 );

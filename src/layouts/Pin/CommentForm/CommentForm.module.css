@@ -24,8 +24,18 @@
   outline: var(--outline);
 }
 
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
 @media (max-width: 768px) {
   .input {
     padding: 9px 40px 9px 16px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
   }
 }

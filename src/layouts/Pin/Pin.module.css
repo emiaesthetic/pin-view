@@ -1,6 +1,5 @@
 .pin {
   position: relative;
-  padding-block: var(--padding-layout);
   color: var(--gray-darker);
 }
 
@@ -22,7 +21,7 @@
   flex-direction: column;
   justify-content: space-between;
   row-gap: 12px;
-  padding: 16px;
+  padding: 20px;
 }
 
 .buttonsGroup {
@@ -44,7 +43,8 @@
   justify-content: space-between;
   align-items: center;
   column-gap: 12px;
-  font-weight: var(--font-weight-bold);
+  margin-left: -6px;
+  font-weight: var(--font-weight-medium);
 }
 
 .comments {
@@ -58,7 +58,7 @@
     flex-direction: column;
   }
 
-  .right {
+  .rightColumn {
     row-gap: 16px;
   }
 
