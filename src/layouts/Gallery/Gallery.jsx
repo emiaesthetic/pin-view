@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import Masonry from 'react-masonry-css';
 import { useDispatch } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 import style from './Gallery.module.css';
 import Item from './Item';
@@ -12,18 +13,18 @@ import usePhotos from '@/hooks/usePhotos';
 import Layout from '@/layouts/Layout';
 import { photosRequest } from '@/store/photos/photosSlice';
 
+const breakpointColumnsObj = {
+  default: 5,
+  1024: 4,
+  768: 3,
+  480: 2,
+};
+
 export const Gallery = () => {
   const { data, error, currentPage, totalPages } = usePhotos();
   const { handleLike } = useLike();
   const dispatch = useDispatch();
   const triggerRef = useRef();
-
-  const breakpointColumnsObj = {
-    default: 5,
-    1024: 4,
-    768: 3,
-    480: 2,
-  };
 
   useEffect(() => {
     if (!triggerRef.current) return;
@@ -49,27 +50,30 @@ export const Gallery = () => {
   if (!data.length) return null;
 
   return (
-    <Layout>
-      <h1 className="visually-hidden">
-        Pin View: Your Personal Unsplash Gallery
-      </h1>
+    <>
+      <Layout>
+        <h1 className="visually-hidden">
+          Pin View: Your Personal Unsplash Gallery
+        </h1>
 
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className={style.masonry}
-        columnClassName={style.column}
-        role="list"
-      >
-        {data.map(photoData => (
-          <Item
-            key={photoData.id}
-            {...photoData}
-            onLike={() => handleLike(photoData.id, photoData.photo.liked)}
-          />
-        ))}
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className={style.masonry}
+          columnClassName={style.column}
+          role="list"
+        >
+          {data.map(photoData => (
+            <Item
+              key={photoData.id}
+              {...photoData}
+              onLike={() => handleLike(photoData.id, photoData.photo.liked)}
+            />
+          ))}
 
-        {currentPage < totalPages && <div ref={triggerRef}></div>}
-      </Masonry>
-    </Layout>
+          {currentPage < totalPages && <div ref={triggerRef}></div>}
+        </Masonry>
+      </Layout>
+      <Outlet />
+    </>
   );
 };

@@ -9,6 +9,7 @@ export const Main = () => (
   <main className={style.main}>
     <Routes>
       <Route path="/" element={<Gallery />} />
+      <Route path="/photos/:search" element={<Gallery />} />
       <Route path="/photo/:id" element={<Pin />} />
     </Routes>
   </main>

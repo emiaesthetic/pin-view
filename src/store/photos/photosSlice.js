@@ -10,6 +10,7 @@ const initialState = {
   loading: false,
   currentPage: 1,
   totalPages: null,
+  search: '',
 };
 
 const photosSlice = createSlice({
@@ -41,6 +42,15 @@ const photosSlice = createSlice({
       state.loading = false;
       state.currentPage = 1;
       state.totalPages = null;
+      state.search = '';
+    },
+    searchRequest: (state, action) => {
+      state.data = [];
+      state.currentPage = 1;
+      state.totalPages = null;
+      state.error = null;
+      state.loading = true;
+      state.search = action.payload;
     },
   },
   extraReducers: builder => {
@@ -55,6 +65,7 @@ export const {
   photosRequest,
   photosRequestSuccess,
   resetPhotos,
+  searchRequest,
 } = photosSlice.actions;
 
 export default photosSlice.reducer;

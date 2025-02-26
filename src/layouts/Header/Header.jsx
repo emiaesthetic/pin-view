@@ -6,6 +6,7 @@ import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import Auth from './Auth';
 import style from './Header.module.css';
 import Logo from './Logo';
+import Search from './Search';
 
 import { headerHeightContext } from '@/context/headerHeight';
 import Layout from '@/layouts/Layout';
@@ -46,6 +47,7 @@ export const Header = () => {
         <Layout>
           <div className={style.content}>
             <Logo />
+            <Search />
             <Auth />
           </div>
         </Layout>
