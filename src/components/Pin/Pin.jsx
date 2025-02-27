@@ -9,10 +9,10 @@ import { PinComments } from './PinComments/PinComments';
 import PinDescription from './PinDescription';
 import PinImage from './PinImage';
 
+import Layout from '@/components/Layout';
 import { headerHeightContext } from '@/context/headerHeight';
 import useLike from '@/hooks/useLike';
 import usePhoto from '@/hooks/usePhoto';
-import Layout from '@/layouts/Layout';
 
 const downloadImage = async path => {
   try {

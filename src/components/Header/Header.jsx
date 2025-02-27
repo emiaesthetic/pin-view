@@ -8,8 +8,8 @@ import style from './Header.module.css';
 import Logo from './Logo';
 import Search from './Search';
 
+import Layout from '@/components/Layout';
 import { headerHeightContext } from '@/context/headerHeight';
-import Layout from '@/layouts/Layout';
 import { tokenRequest } from '@/store/token/tokenSlice';
 
 export const Header = () => {

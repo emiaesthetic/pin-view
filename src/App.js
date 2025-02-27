@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
+import Header from '@/components/Header';
+import Main from '@/components/Main';
 import HeaderHeightProvider from '@/context/headerHeight';
-import Header from '@/layouts/Header';
-import Main from '@/layouts/Main';
 import { getToken } from '@/services/tokenStorage';
 import { updateToken } from '@/store/token/tokenSlice';
 

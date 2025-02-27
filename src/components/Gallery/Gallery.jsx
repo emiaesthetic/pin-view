@@ -8,10 +8,10 @@ import style from './Gallery.module.css';
 import Item from './Item';
 
 import Error from '@/components/Error';
+import Layout from '@/components/Layout';
 import { ScrollContext } from '@/context/scrollContext';
 import useLike from '@/hooks/useLike';
 import usePhotos from '@/hooks/usePhotos';
-import Layout from '@/layouts/Layout';
 import { photosRequest } from '@/store/photos/photosSlice';
 
 const breakpointColumnsObj = {
