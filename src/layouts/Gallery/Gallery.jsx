@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 import Masonry from 'react-masonry-css';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import style from './Gallery.module.css';
 import Item from './Item';
 
 import Error from '@/components/Error';
+import { ScrollContext } from '@/context/scrollContext';
 import useLike from '@/hooks/useLike';
 import usePhotos from '@/hooks/usePhotos';
 import Layout from '@/layouts/Layout';
@@ -22,9 +23,18 @@ const breakpointColumnsObj = {
 
 export const Gallery = () => {
   const { data, error, currentPage, totalPages } = usePhotos();
+  const { scrollPosition, setScrollPosition } = useContext(ScrollContext);
   const { handleLike } = useLike();
   const dispatch = useDispatch();
   const triggerRef = useRef();
+
+  useEffect(() => {
+    window.scrollTo(0, scrollPosition);
+  }, [scrollPosition]);
+
+  const handleOpenPhoto = () => {
+    setScrollPosition(window.scrollY);
+  };
 
   useEffect(() => {
     if (!triggerRef.current) return;
@@ -67,6 +77,7 @@ export const Gallery = () => {
               key={photoData.id}
               {...photoData}
               onLike={() => handleLike(photoData.id, photoData.photo.liked)}
+              onPhoto={handleOpenPhoto}
             />
           ))}
 

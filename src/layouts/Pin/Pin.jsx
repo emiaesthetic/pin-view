@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
 
+import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import style from './Pin.module.css';
@@ -41,9 +42,10 @@ export const Pin = () => {
   const contentRef = useRef(null);
   const { headerHeight } = useContext(headerHeightContext);
   const navigate = useNavigate();
+  const search = useSelector(state => state.photos.search);
 
   const handleComeBack = () => {
-    navigate('/');
+    navigate(`${search ? `/photos/${search}` : '/'}`);
   };
 
   useEffect(() => {
@@ -75,7 +77,7 @@ export const Pin = () => {
 
         <div className={style.content} ref={contentRef}>
           <div className={style.leftColumn}>
-            <PinImage {...photo} comeBack={handleComeBack} />
+            <PinImage {...photo} onComeBack={handleComeBack} />
           </div>
 
           <div className={style.rightColumn}>

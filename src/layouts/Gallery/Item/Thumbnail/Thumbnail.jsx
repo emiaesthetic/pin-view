@@ -6,9 +6,16 @@ import style from './Thumbnail.module.css';
 
 import Button from '@/components/Button';
 
-export const Thumbnail = ({ id, thumb, description, liked, onLike }) => (
+export const Thumbnail = ({
+  id,
+  thumb,
+  description,
+  liked,
+  onLike,
+  onPhoto,
+}) => (
   <div className={style.thumbnail}>
-    <Link className={style.link} to={`/photo/${id}`}>
+    <Link className={style.link} to={`/photo/${id}`} onClick={onPhoto}>
       <img
         className={style.img}
         src={thumb}
@@ -36,4 +43,5 @@ Thumbnail.propTypes = {
   description: PropTypes.string,
   liked: PropTypes.bool,
   onLike: PropTypes.func,
+  onPhoto: PropTypes.func,
 };

@@ -21,8 +21,9 @@ export const Search = () => {
       <input
         className={style.input}
         type="search"
-        onChange={event => setSearch(event.target.value)}
+        onChange={event => setSearch(event.target.value.trim())}
         value={search}
+        required
       />
       <Button kind="buttonComment" type="submit" aria-label="Search">
         <SearchIcon className={style.icon} aria-hidden="true" />
