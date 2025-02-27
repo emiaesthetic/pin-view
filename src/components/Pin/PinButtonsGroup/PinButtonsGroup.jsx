@@ -16,8 +16,8 @@ export const PinButtonsGroup = ({
   <div className={style.buttonsGroup}>
     <div className={style.favorite}>
       <Button
-        kind="buttonIcon"
-        color={liked ? 'favorite' : 'light'}
+        kind="icon"
+        color={liked ? 'accent' : 'alphaBG'}
         aria-label="Add to favorites"
         onClick={() => onLike(id, liked, likes)}
       >
@@ -25,7 +25,7 @@ export const PinButtonsGroup = ({
       </Button>
       <span>{likes}</span>
     </div>
-    <Button kind="buttonText" color="accent" onClick={() => onDownload(full)}>
+    <Button kind="text" color="accentBG" onClick={() => onDownload(full)}>
       Download
     </Button>
   </div>

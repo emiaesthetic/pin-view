@@ -25,7 +25,7 @@ export const UserMenu = ({ user, onLogout }) => (
         <span className={style.email}>{user.email}</span>
       </div>
     </div>
-    <Button kind="buttonIcon" aria-label="Log out" onClick={onLogout}>
+    <Button kind="icon" aria-label="Log out" onClick={onLogout}>
       <LogoutIcon aria-hidden="true" />
     </Button>
   </div>

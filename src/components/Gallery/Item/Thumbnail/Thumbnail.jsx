@@ -27,8 +27,8 @@ export const Thumbnail = ({
     </Link>
 
     <Button
-      kind="buttonFavorite"
-      color={liked ? 'favorite' : 'light'}
+      kind="favorite"
+      color={liked ? 'accent' : 'lightBG'}
       aria-label="Add to favorites"
       onClick={onLike}
     >

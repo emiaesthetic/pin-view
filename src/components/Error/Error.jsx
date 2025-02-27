@@ -38,7 +38,7 @@ export const Error = ({ message }) => {
       </div>
 
       <Button
-        kind="buttonIcon"
+        kind="icon"
         aria-label="Close error"
         onClick={() => setIsShow(false)}
       >

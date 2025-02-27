@@ -25,7 +25,7 @@ export const Search = () => {
         value={search}
         required
       />
-      <Button kind="buttonComment" type="submit" aria-label="Search">
+      <Button kind="input" type="submit" aria-label="Search">
         <SearchIcon className={style.icon} aria-hidden="true" />
       </Button>
     </form>

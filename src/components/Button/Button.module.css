@@ -2,7 +2,7 @@
   --color: currentColor;
   --backgroundColor: transparent;
   --hoverColor: currentColor;
-  --hoverBgColor: var(--gray);
+  --hoverBgColor: var(--gray-alpha);
 
   flex-shrink: 0;
   border: none;
@@ -34,14 +34,14 @@
   outline: var(--outline);
 }
 
-.buttonText {
+.text {
   display: block;
   padding: 12px 20px;
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-base);
 }
 
-.buttonIcon {
+.icon {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +49,7 @@
   height: var(--height);
 }
 
-.buttonFavorite {
+.favorite {
   position: absolute;
   right: 10px;
   bottom: 15px;
@@ -60,15 +60,15 @@
   width: 40px;
   height: 40px;
   opacity: var(--opacity);
-  transition-property: opacity;
+  transition-property: opacity, color, background-color;
 }
 
-.buttonFavorite:focus-visible {
+.favorite:focus-visible {
   outline: none;
   background-color: var(--gray-light);
 }
 
-.buttonComment {
+.input {
   position: absolute;
   top: 50%;
   right: 0;
@@ -80,7 +80,7 @@
   height: var(--height);
 }
 
-.comeBack {
+.back {
   position: absolute;
   top: 15px;
   left: 10px;
@@ -90,39 +90,46 @@
   align-items: center;
   width: 40px;
   height: 40px;
+  box-shadow: 0px 0px 5px 0px var(--gray);
 }
 
-.light {
-  --color: var(--gray-darker);
+.alphaBG {
+  --color: var(--gray-dark);
+  --backgroundColor: var(--gray-lighter);
+  --hoverBgColor: var(--gray-alpha);
+}
+
+.lightBG {
+  --color: var(--gray-dark);
   --backgroundColor: var(--gray-lighter);
   --hoverBgColor: var(--gray-light);
 }
 
-.dark {
+.darkBG {
   --color: var(--gray-lighter);
-  --backgroundColor: var(--gray-darker);
-  --hoverBgColor: var(--gray-dark);
+  --backgroundColor: var(--gray-dark);
+  --hoverBgColor: var(--gray-darker);
 }
 
-.accent {
+.accentBG {
   --color: var(--gray-lighter);
   --backgroundColor: var(--accent);
   --hoverBgColor: var(--accent-light);
 }
 
-.favorite {
+.accent {
   --color: var(--accent);
   --backgroundColor: var(--gray-lighter);
   --hoverBgColor: var(--gray-light);
 }
 
 @media (max-width: 768px) {
-  .buttonText {
+  .text {
     padding: 10px 16px;
   }
 
-  .buttonFavorite,
-  .comeBack {
+  .favorite,
+  .back {
     width: 32px;
     height: 32px;
   }

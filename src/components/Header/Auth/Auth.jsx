@@ -23,7 +23,7 @@ export const Auth = () => {
       return (
         <>
           <Button
-            kind="buttonIcon"
+            kind="icon"
             title={user.username}
             onClick={() => setMenuIsOpen(!menuIsOpen)}
           >
