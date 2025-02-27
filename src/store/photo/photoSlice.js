@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { reactionRequestSuccess } from '../reaction/reactionSlice';
+import {
+  reactionRequestSuccess,
+  optimisticLikeReducer,
+  rollbackLikeReducer,
+} from '../reaction/reactionSlice';
 
 import updatePhoto from '@/utils/updatePhoto';
 
@@ -28,9 +32,25 @@ const photoSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(reactionRequestSuccess, (state, action) => {
-      state.photo = updatePhoto(state.photo, action.payload);
-    });
+    builder
+      .addCase(reactionRequestSuccess, (state, action) => {
+        state.photo = updatePhoto(state.photo, action.payload);
+      })
+      .addCase(optimisticLikeReducer, (state, action) => {
+        state.photo = updatePhoto(state.photo, {
+          id: action.payload.photoID,
+          liked: !action.payload.currentLikeState,
+          likes:
+            action.payload.count + (action.payload.currentLikeState ? -1 : 1),
+        });
+      })
+      .addCase(rollbackLikeReducer, (state, action) => {
+        state.photo = updatePhoto(state.photo, {
+          id: action.payload.photoID,
+          liked: action.payload.currentLikeState,
+          likes: action.payload.count,
+        });
+      });
   },
 });
 

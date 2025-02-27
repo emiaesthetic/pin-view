@@ -22,10 +22,26 @@ const reactionSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    optimisticLikeReducer: (state, action) => {
+      const {
+        photoID: id,
+        currentLikeState: liked,
+        count: likes,
+      } = action.payload;
+      state.photo = { id, liked: !liked, likes: likes + (liked ? -1 : 1) };
+    },
+    rollbackLikeReducer: (state, action) => {
+      state.photo = action.payload;
+    },
   },
 });
 
-export const { reactionRequest, reactionRequestSuccess, reactionRequestError } =
-  reactionSlice.actions;
+export const {
+  reactionRequest,
+  reactionRequestSuccess,
+  reactionRequestError,
+  optimisticLikeReducer,
+  rollbackLikeReducer,
+} = reactionSlice.actions;
 
 export default reactionSlice.reducer;

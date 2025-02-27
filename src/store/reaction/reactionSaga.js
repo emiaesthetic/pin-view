@@ -5,6 +5,8 @@ import {
   reactionRequest,
   reactionRequestSuccess,
   reactionRequestError,
+  optimisticLikeReducer,
+  rollbackLikeReducer,
 } from './reactionSlice';
 
 import { API_URL } from '@/config/config';
@@ -13,9 +15,11 @@ function* fetchReaction(action) {
   const token = yield select(state => state.token.token);
   if (!token) return;
 
-  const { photoID, currentLikeState } = action.payload;
+  const { photoID, currentLikeState, count } = action.payload;
 
   try {
+    yield put(optimisticLikeReducer({ photoID, currentLikeState, count }));
+
     const request = yield axios(`${API_URL}/photos/${photoID}/like`, {
       method: currentLikeState ? 'DELETE' : 'POST',
       headers: {
@@ -28,6 +32,7 @@ function* fetchReaction(action) {
 
     yield put(reactionRequestSuccess({ id, likes, liked }));
   } catch (error) {
+    yield put(rollbackLikeReducer({ photoID, currentLikeState, count }));
     yield put(reactionRequestError(error.message));
   }
 }

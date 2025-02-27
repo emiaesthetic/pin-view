@@ -76,7 +76,13 @@ export const Gallery = () => {
             <Item
               key={photoData.id}
               {...photoData}
-              onLike={() => handleLike(photoData.id, photoData.photo.liked)}
+              onLike={() =>
+                handleLike(
+                  photoData.id,
+                  photoData.photo.liked,
+                  photoData.photo.likes,
+                )
+              }
               onPhoto={handleOpenPhoto}
             />
           ))}

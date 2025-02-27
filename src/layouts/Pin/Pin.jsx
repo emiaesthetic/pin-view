@@ -83,7 +83,7 @@ export const Pin = () => {
           <div className={style.rightColumn}>
             <PinButtonsGroup
               id={photoID}
-              onClick={handleLike}
+              onLike={handleLike}
               onDownload={downloadImage}
               {...photo}
             />

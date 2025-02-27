@@ -5,8 +5,8 @@ import { reactionRequest } from '@/store/reaction/reactionSlice';
 const useLike = () => {
   const dispatch = useDispatch();
 
-  const handleLike = (photoID, currentLikeState) => {
-    dispatch(reactionRequest({ photoID, currentLikeState }));
+  const handleLike = (photoID, currentLikeState, count) => {
+    dispatch(reactionRequest({ photoID, currentLikeState, count }));
   };
 
   return { handleLike };

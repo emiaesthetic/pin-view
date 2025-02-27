@@ -10,7 +10,7 @@ export const PinButtonsGroup = ({
   full,
   likes,
   liked,
-  onClick,
+  onLike,
   onDownload,
 }) => (
   <div className={style.buttonsGroup}>
@@ -19,7 +19,7 @@ export const PinButtonsGroup = ({
         kind="buttonIcon"
         color={liked ? 'favorite' : 'light'}
         aria-label="Add to favorites"
-        onClick={() => onClick(id, liked)}
+        onClick={() => onLike(id, liked, likes)}
       >
         <FavoriteIcon aria-hidden="true" />
       </Button>
@@ -36,6 +36,6 @@ PinButtonsGroup.propTypes = {
   full: PropTypes.string,
   likes: PropTypes.number,
   liked: PropTypes.bool,
-  onClick: PropTypes.func,
+  onLike: PropTypes.func,
   onDownload: PropTypes.func,
 };
