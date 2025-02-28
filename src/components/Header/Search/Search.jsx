@@ -1,18 +1,22 @@
 import { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as SearchIcon } from './img/search.svg';
 import style from './Search.module.css';
 
 import Button from '@/components/Button';
+import { searchRequest } from '@/store/photos/photosSlice';
 
 export const Search = () => {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = event => {
     event.preventDefault();
+    dispatch(searchRequest(search));
     navigate(`/photos/${search}`);
   };
 

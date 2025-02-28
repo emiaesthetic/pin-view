@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, select } from 'redux-saga/effects';
 
 import {
   tokenRequest,
@@ -15,7 +15,8 @@ import {
   GRANT_TYPE,
 } from '@/config/config';
 
-function* fetchToken({ payload: code }) {
+function* fetchToken() {
+  const code = yield select(state => state.token.code);
   if (!code) return;
 
   try {

@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, take, takeLatest } from 'redux-saga/effects';
+
+import { tokenRequestSuccess, tokenRequestError } from '../token/tokenSlice';
 
 import {
   photosRequest,
@@ -12,6 +14,16 @@ import { API_URL, ACCESS_KEY } from '@/config/config';
 import transformPhotoData from '@/utils/transformPhotoData';
 
 function* fetchPhotos() {
+  const { token, code } = yield select(state => state.token);
+
+  if (code && !token) {
+    yield take(
+      action =>
+        action.type === tokenRequestSuccess.type ||
+        action.type === tokenRequestError.type,
+    );
+  }
+
   const { search, currentPage, totalPages } = yield select(
     state => state.photos,
   );

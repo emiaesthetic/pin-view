@@ -28,16 +28,14 @@ const usePhotos = () => {
   }, [token, navigate, dispatch]);
 
   useEffect(() => {
+    if (data.length !== 0 || loading) return;
+
     if (search !== undefined && search.trim() !== '') {
       dispatch(searchRequest(search));
-    }
-  }, [search, dispatch]);
-
-  useEffect(() => {
-    if (data.length === 0 && !search) {
+    } else {
       dispatch(photosRequest());
     }
-  }, [data, search, dispatch]);
+  }, [data, search, loading, dispatch]);
 
   return { data, error, loading, currentPage, totalPages };
 };
