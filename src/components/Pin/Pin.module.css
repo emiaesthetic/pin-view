@@ -1,12 +1,12 @@
 .pin {
   position: relative;
-  color: var(--gray-darker);
+  color: var(--gray-dark);
 }
 
 .content {
   display: flex;
   gap: 12px;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--gray-alpha);
   border-radius: var(--border-radius-lg);
   background-color: var(--gray-lighter);
 }

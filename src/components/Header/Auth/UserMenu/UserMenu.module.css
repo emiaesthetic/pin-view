@@ -9,10 +9,9 @@
   column-gap: 8px;
   padding: 10px 12px;
   border-radius: var(--border-radius-md);
-  color: var(--gray-darker);
-  border: 1px solid var(--gray);
+  color: var(--gray);
   background-color: var(--gray-lighter);
-  backdrop-filter: blur(100px);
+  box-shadow: var(--box-shadow);
 }
 
 .menu svg {
@@ -28,7 +27,8 @@
   align-items: center;
   font-weight: var(--font-weight-medium);
   border-radius: var(--border-radius-md);
-  background-color: var(--gray);
+  color: var(--gray-dark);
+  background-color: var(--gray-alpha);
 }
 
 .img {
@@ -70,7 +70,7 @@
 
 .email {
   font-size: var(--font-size-sm);
-  color: var(--gray-dark);
+  color: var(--gray);
 }
 
 @media (max-width: 768px) {

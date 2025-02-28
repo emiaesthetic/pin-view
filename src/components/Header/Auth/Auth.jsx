@@ -44,7 +44,7 @@ export const Auth = () => {
         href={authUrl}
         aria-label="User Authentication"
       >
-        <LoginIcon aria-hidden="true" />
+        <LoginIcon className={style.icon} aria-hidden="true" />
       </a>
     );
   };

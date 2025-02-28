@@ -14,13 +14,13 @@
 
 @media (hover: hover) {
   .logo:hover {
-    background-color: var(--gray);
+    background-color: var(--gray-alpha);
   }
 }
 
 @media (hover: none) {
   .logo:active {
-    background-color: var(--gray);
+    background-color: var(--gray-alpha);
   }
 }
 
@@ -32,7 +32,14 @@
   outline: var(--outline);
 }
 
-.logo svg {
-  width: 70%;
-  height: 70%;
+.icon {
+  width: 36px;
+  height: 36px;
+}
+
+@media (max-width: 768px) {
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
 }

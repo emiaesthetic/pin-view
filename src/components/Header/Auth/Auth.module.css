@@ -1,4 +1,7 @@
 .auth {
+  --widthIcon: 36px;
+  --heightIcon: 36px;
+
   position: relative;
 }
 
@@ -21,13 +24,13 @@
 
 @media (hover: hover) {
   .login:hover {
-    background-color: var(--gray);
+    background-color: var(--gray-alpha);
   }
 }
 
 @media (hover: none) {
   .login:active {
-    background-color: var(--gray);
+    background-color: var(--gray-alpha);
   }
 }
 
@@ -39,27 +42,22 @@
   outline: var(--outline);
 }
 
-.login svg {
-  width: 32px;
-  height: 32px;
+.icon {
+  width: var(--widthIcon);
+  height: var(--heightIcon);
 }
 
 .img {
-  width: 36px;
-  height: 36px;
+  width: var(--widthIcon);
+  height: var(--heightIcon);
   border-radius: 50%;
   object-fit: cover;
   object-position: top;
 }
 
 @media (max-width: 768px) {
-  .img {
-    width: 26px;
-    height: 26px;
-  }
-
-  .login svg {
-    width: 26px;
-    height: 26px;
+  .auth {
+    --widthIcon: 30px;
+    --heightIcon: 30px;
   }
 }

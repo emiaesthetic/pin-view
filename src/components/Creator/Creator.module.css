@@ -20,7 +20,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--gray-darker);
+  color: var(--gray-dark);
 }
 
 .link:after {
@@ -34,7 +34,7 @@
 }
 
 .link:hover:after {
-  background-color: var(--gray);
+  background-color: var(--gray-alpha);
 }
 
 .link:focus {

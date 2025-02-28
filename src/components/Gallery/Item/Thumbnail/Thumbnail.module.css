@@ -20,7 +20,7 @@
   inset: 0;
   z-index: 10;
   border-radius: var(--border-radius-lg);
-  border: 1px solid var(--gray);
+  box-shadow: var(--box-shadow);
   transition-property: background-color, scale;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
@@ -28,14 +28,13 @@
 
 .thumbnail:hover .link:after,
 .thumbnail:focus-within .link:after {
-  background-color: var(--gray-dark);
+  background-color: var(--gray-alpha);
   scale: 1.02;
 }
 
 .img {
   width: 100%;
   height: auto;
-  border: 1px solid var(--gray);
   border-radius: var(--border-radius-lg);
   transition-property: scale;
   transition-duration: 0.2s;

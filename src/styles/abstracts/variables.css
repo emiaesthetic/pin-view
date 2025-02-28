@@ -6,15 +6,17 @@
   --container-width: 1200px;
   --container-padding-x: 20px;
 
-  --gray-lighter: rgb(255 255 255 / 0.9);
-  --gray-light: rgb(255 255 255 / 0.7);
-  --gray: rgb(0 0 0 / 0.1);
-  --gray-dark: rgb(0 0 0 / 0.3);
-  --gray-darker: rgb(0 0 0 / 0.7);
+  --gray-lighter: #fafafa;
+  --gray-light: #ccc;
+  --gray: #a6a6a6;
+  --gray-dark: #343434;
+  --gray-darker: #272727;
 
-  --accent-light: rgb(255 115 115);
-  --accent: rgb(255 77 77);
-  --accent-dark: rgb(255 68 68);
+  --gray-alpha: rgb(0 0 0 / 0.1);
+
+  --accent-light: #ff7373;
+  --accent: #ff4d4d;
+  --accent-dark: #ff4444;
 
   --success: #00cd67;
   --warning: #ffa500;
@@ -32,13 +34,15 @@
   --border-radius-md: 12px;
   --border-radius-sm: 6px;
 
-  --outline: 2px solid var(--gray-darker);
+  --outline: 2px solid var(--gray-dark);
   --blur: blur(18px);
 
   --padding-layout: 28px;
 
   --width: 48px;
   --height: 48px;
+
+  --box-shadow: 0px 0px 10px var(--gray-alpha);
 }
 
 @media (max-width: 1024px) {
