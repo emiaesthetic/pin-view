@@ -23,7 +23,7 @@ const photosSlice = createSlice({
   reducers: {
     photosRequest: state => {
       state.error = null;
-      state.loading = true;
+      state.loading = state.currentPage === 1;
     },
     photosRequestSuccess: (state, action) => {
       const { data, totalPages } = action.payload;

@@ -1,15 +1,8 @@
-import PropTypes from 'prop-types';
-import DotLoader from 'react-spinners/DotLoader';
-
+import { ReactComponent as LogoIcon } from './img/logo.svg';
 import style from './Preloader.module.css';
 
-export const Preloader = ({ type = 'local', size = 50 }) => (
-  <div className={style[type]}>
-    <DotLoader color="rgb(255 77 77)" size={size} />
+export const Preloader = () => (
+  <div className={style.preloader}>
+    <LogoIcon className={style.icon} aria-label="Pin View Logo" />
   </div>
 );
-
-Preloader.propTypes = {
-  type: PropTypes.string,
-  size: PropTypes.number,
-};

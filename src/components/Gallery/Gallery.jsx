@@ -8,24 +8,26 @@ import Item from './Item';
 
 import Error from '@/components/Error';
 import Layout from '@/components/Layout';
+import Preloader from '@/components/Preloader';
 import { useScroll } from '@/context/ScrollContext';
 import useLike from '@/hooks/useLike';
+import useLoader from '@/hooks/useLoader';
 import usePhotos from '@/hooks/usePhotos';
 import { photosRequest } from '@/store/photos/photosSlice';
 
-const breakpointColumnsObj = {
-  default: 5,
-  1024: 4,
-  768: 3,
-  480: 2,
-};
-
 export const Gallery = () => {
-  const { data, error, currentPage, totalPages } = usePhotos();
+  const { data, error, loading, currentPage, totalPages } = usePhotos();
   const { scrollPosition, setScrollPosition } = useScroll();
   const { handleLike } = useLike();
+  const { showLoader } = useLoader(loading);
   const dispatch = useDispatch();
   const triggerRef = useRef();
+  const breakpointColumnsObj = {
+    default: 5,
+    1024: 4,
+    768: 3,
+    480: 2,
+  };
 
   useEffect(() => {
     window.scrollTo(0, scrollPosition);
@@ -53,6 +55,8 @@ export const Gallery = () => {
 
     return () => observer.disconnect();
   }, [data.length, dispatch]);
+
+  if (showLoader) return <Preloader />;
 
   if (error) return <Error message={error} />;
 

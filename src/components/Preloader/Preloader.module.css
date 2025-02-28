@@ -1,17 +1,45 @@
-.full {
+.preloader {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 1001;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--gray-lighter);
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
 }
 
-.local {
-  display: 'block';
-  margin: '0 auto';
+.preloader.hide {
+  opacity: 0;
 }
 
 .icon {
+  width: 56px;
+  height: 56px;
   color: var(--accent);
+  animation: scalePreloader 1s ease-in-out infinite forwards;
+}
+
+@media (max-width: 768px) {
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@keyframes scalePreloader {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 0.9;
+  }
+
+  100% {
+    scale: 1;
+  }
 }

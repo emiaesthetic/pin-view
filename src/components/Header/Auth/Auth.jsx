@@ -6,11 +6,12 @@ import UserMenu from './UserMenu';
 
 import Button from '@/components/Button';
 import Error from '@/components/Error';
+import Preloader from '@/components/Preloader';
 import authUrl from '@/config/authConfig';
 import useAuth from '@/hooks/useAuth';
 
 export const Auth = () => {
-  const { user, error, clearAuth } = useAuth();
+  const { user, error, loading, clearAuth } = useAuth();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const handleLogout = () => {
@@ -19,6 +20,8 @@ export const Auth = () => {
   };
 
   const renderContent = () => {
+    if (loading) return <Preloader isLoading={loading} />;
+
     if (user) {
       return (
         <>
