@@ -9,10 +9,25 @@
   border: none;
   border-radius: var(--border-radius-md);
   background-color: var(--gray-alpha);
+  transition-property: background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
 }
 
 .input::placeholder {
   color: var(--gray);
+}
+
+@media (hover: hover) {
+  .input:hover {
+    background-color: var(--gray-light);
+  }
+}
+
+@media (hover: none) {
+  .input:active {
+    background-color: var(--gray-light);
+  }
 }
 
 .input:focus {
