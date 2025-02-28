@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ import PinDescription from './PinDescription';
 import PinImage from './PinImage';
 
 import Layout from '@/components/Layout';
-import { headerHeightContext } from '@/context/headerHeight';
+import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import useLike from '@/hooks/useLike';
 import usePhoto from '@/hooks/usePhoto';
 
@@ -39,16 +39,16 @@ export const Pin = () => {
   const { id } = useParams();
   const { id: photoID, photo, user } = usePhoto(id);
   const { handleLike } = useLike();
+  const { headerHeight } = useHeaderHeight();
   const contentRef = useRef(null);
-  const { headerHeight } = useContext(headerHeightContext);
-  const navigate = useNavigate();
   const search = useSelector(state => state.photos.search);
+  const navigate = useNavigate();
 
   const handleComeBack = () => {
     navigate(`${search ? `/photos/${search}` : '/'}`);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const adjustHeight = () => {
       const content = contentRef.current;
       if (!content) return;

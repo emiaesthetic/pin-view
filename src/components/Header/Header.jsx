@@ -1,4 +1,4 @@
-import { useEffect, useContext, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -9,16 +9,15 @@ import Logo from './Logo';
 import Search from './Search';
 
 import Layout from '@/components/Layout';
-import { headerHeightContext } from '@/context/headerHeight';
+import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import { tokenRequest } from '@/store/token/tokenSlice';
 
 export const Header = () => {
+  const [searchParams] = useSearchParams();
+  const { setHeaderHeight } = useHeaderHeight();
+  const headerRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  const headerRef = useRef(null);
-  const { setHeaderHeight } = useContext(headerHeightContext);
 
   useEffect(() => {
     const code = searchParams.get('code');
