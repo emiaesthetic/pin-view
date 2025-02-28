@@ -7,7 +7,7 @@ import Main from '@/components/Main';
 import PageNotFound from '@/components/PageNotFound';
 import Pin from '@/components/Pin';
 import { HeaderHeightProvider } from '@/context/HeaderHeightContext';
-import ScrollProvider from '@/context/scrollContext';
+import { ScrollProvider } from '@/context/ScrollContext';
 import { getToken } from '@/services/tokenStorage';
 import { updateToken } from '@/store/token/tokenSlice';
 
@@ -16,23 +16,23 @@ const App = () => {
   dispatch(updateToken(getToken()));
 
   return (
-    <ScrollProvider>
-      <Routes>
-        <Route
-          element={
-            <HeaderHeightProvider>
-              <Header />
+    <Routes>
+      <Route
+        element={
+          <HeaderHeightProvider>
+            <Header />
+            <ScrollProvider>
               <Main />
-            </HeaderHeightProvider>
-          }
-        >
-          <Route path="/" element={<Gallery />} />
-          <Route path="/photos/:search" element={<Gallery />} />
-          <Route path="/photo/:id" element={<Pin />} />
-        </Route>
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </ScrollProvider>
+            </ScrollProvider>
+          </HeaderHeightProvider>
+        }
+      >
+        <Route path="/" element={<Gallery />} />
+        <Route path="/photos/:search" element={<Gallery />} />
+        <Route path="/photo/:id" element={<Pin />} />
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
   );
 };
 

@@ -1,10 +1,12 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-export const ScrollContext = createContext();
+const ScrollContext = createContext();
 
-const ScrollProvider = ({ children }) => {
+export const useScroll = () => useContext(ScrollContext);
+
+export const ScrollProvider = ({ children }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   return (
@@ -21,5 +23,3 @@ ScrollProvider.propTypes = {
     PropTypes.array,
   ]),
 };
-
-export default ScrollProvider;
