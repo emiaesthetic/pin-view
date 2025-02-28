@@ -26,6 +26,7 @@
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
+  --font-size-lg: 48px;
   --font-size-base: 16px;
   --font-size-sm: 12px;
 
@@ -53,6 +54,8 @@
 
 @media (max-width: 768px) {
   :root {
+    --font-size-lg: 36px;
+
     --border-radius-xlg: 28px;
     --border-radius-lg: 16px;
     --border-radius-md: 10px;

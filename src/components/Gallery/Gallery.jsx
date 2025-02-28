@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef } from 'react';
 
 import Masonry from 'react-masonry-css';
 import { useDispatch } from 'react-redux';
-import { Outlet } from 'react-router-dom';
 
 import style from './Gallery.module.css';
 import Item from './Item';
@@ -60,37 +59,34 @@ export const Gallery = () => {
   if (!data.length) return null;
 
   return (
-    <>
-      <Layout>
-        <h1 className="visually-hidden">
-          Pin View: Your Personal Unsplash Gallery
-        </h1>
+    <Layout>
+      <h1 className="visually-hidden">
+        Pin View: Your Personal Unsplash Gallery
+      </h1>
 
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className={style.masonry}
-          columnClassName={style.column}
-          role="list"
-        >
-          {data.map(photoData => (
-            <Item
-              key={photoData.id}
-              {...photoData}
-              onLike={() =>
-                handleLike(
-                  photoData.id,
-                  photoData.photo.liked,
-                  photoData.photo.likes,
-                )
-              }
-              onPhoto={handleOpenPhoto}
-            />
-          ))}
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className={style.masonry}
+        columnClassName={style.column}
+        role="list"
+      >
+        {data.map(photoData => (
+          <Item
+            key={photoData.id}
+            {...photoData}
+            onLike={() =>
+              handleLike(
+                photoData.id,
+                photoData.photo.liked,
+                photoData.photo.likes,
+              )
+            }
+            onPhoto={handleOpenPhoto}
+          />
+        ))}
 
-          {currentPage < totalPages && <div ref={triggerRef}></div>}
-        </Masonry>
-      </Layout>
-      <Outlet />
-    </>
+        {currentPage < totalPages && <div ref={triggerRef}></div>}
+      </Masonry>
+    </Layout>
   );
 };

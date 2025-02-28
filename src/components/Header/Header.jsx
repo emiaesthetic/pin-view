@@ -1,7 +1,7 @@
 import { useEffect, useContext, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import Auth from './Auth';
 import style from './Header.module.css';
@@ -42,17 +42,14 @@ export const Header = () => {
   }, [setHeaderHeight]);
 
   return (
-    <>
-      <header className={style.header} ref={headerRef}>
-        <Layout>
-          <div className={style.content}>
-            <Logo />
-            <Search />
-            <Auth />
-          </div>
-        </Layout>
-      </header>
-      <Outlet />
-    </>
+    <header className={style.header} ref={headerRef}>
+      <Layout>
+        <div className={style.content}>
+          <Logo />
+          <Search />
+          <Auth />
+        </div>
+      </Layout>
+    </header>
   );
 };
