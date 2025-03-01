@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-body:has(dialog[open]) {
+body:has(#preloader) {
   overflow-y: hidden;
 }
 

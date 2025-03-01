@@ -3,14 +3,21 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import style from './Error.module.css';
 import { ReactComponent as CloseIcon } from './img/close.svg';
 import { ReactComponent as ErrorIcon } from './img/error.svg';
+import { ReactComponent as NeutralIcon } from './img/neutral.svg';
+import style from './Notification.module.css';
 
 import Button from '@/components/Button';
 
-export const Error = ({ message }) => {
+const notificationList = {
+  error: { title: 'Error toast', Icon: ErrorIcon },
+  neutral: { title: 'Neutral toast', Icon: NeutralIcon },
+};
+
+export const Notification = ({ type, position, message }) => {
   const [isShow, setIsShow] = useState(false);
+  const { title, Icon } = notificationList[type];
 
   useEffect(() => {
     if (message) {
@@ -18,7 +25,7 @@ export const Error = ({ message }) => {
 
       const timer = setTimeout(() => {
         setIsShow(false);
-      }, 5000);
+      }, 10000);
 
       return () => clearTimeout(timer);
     }
@@ -27,13 +34,13 @@ export const Error = ({ message }) => {
   if (!isShow || !message) return null;
 
   return ReactDOM.createPortal(
-    <div className={style.error}>
+    <div className={`${style.notification} ${style[type]} ${style[position]}`}>
       <div className={style.iconWrapper}>
-        <ErrorIcon className={style.icon} aria-hidden="true" />
+        <Icon className={style.icon} aria-hidden="true" />
       </div>
 
       <div className={style.content}>
-        <h3 className={style.title}>Error toast</h3>
+        <h3 className={style.title}>{title}</h3>
         <p className={style.message}>{message}</p>
       </div>
 
@@ -49,6 +56,8 @@ export const Error = ({ message }) => {
   );
 };
 
-Error.propTypes = {
+Notification.propTypes = {
+  type: PropTypes.string,
+  position: PropTypes.string,
   message: PropTypes.string,
 };

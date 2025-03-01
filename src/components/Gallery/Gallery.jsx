@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import style from './Gallery.module.css';
 import Item from './Item';
 
-import Error from '@/components/Error';
 import Layout from '@/components/Layout';
+import Notification from '@/components/Notification';
 import Preloader from '@/components/Preloader';
 import { useScroll } from '@/context/ScrollContext';
 import useLike from '@/hooks/useLike';
@@ -56,41 +56,52 @@ export const Gallery = () => {
     return () => observer.disconnect();
   }, [data.length, dispatch]);
 
-  if (showLoader) return <Preloader />;
+  if (error) {
+    return <Notification type="error" position="topRight" message={error} />;
+  }
 
-  if (error) return <Error message={error} />;
-
-  if (!data.length) return null;
+  if (!showLoader && !data.length) {
+    return (
+      <Notification
+        type="neutral"
+        position="topRight"
+        message="I can't find anything... I'm sorry."
+      />
+    );
+  }
 
   return (
-    <Layout>
-      <h1 className="visually-hidden">
-        Pin View: Your Personal Unsplash Gallery
-      </h1>
+    <>
+      {showLoader && <Preloader />}
+      <Layout>
+        <h1 className="visually-hidden">
+          Pin View: Your Personal Unsplash Gallery
+        </h1>
 
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className={style.masonry}
-        columnClassName={style.column}
-        role="list"
-      >
-        {data.map(photoData => (
-          <Item
-            key={photoData.id}
-            {...photoData}
-            onLike={() =>
-              handleLike(
-                photoData.id,
-                photoData.photo.liked,
-                photoData.photo.likes,
-              )
-            }
-            onPhoto={handleOpenPhoto}
-          />
-        ))}
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className={style.masonry}
+          columnClassName={style.column}
+          role="list"
+        >
+          {data.map(photoData => (
+            <Item
+              key={photoData.id}
+              {...photoData}
+              onLike={() =>
+                handleLike(
+                  photoData.id,
+                  photoData.photo.liked,
+                  photoData.photo.likes,
+                )
+              }
+              onPhoto={handleOpenPhoto}
+            />
+          ))}
 
-        {currentPage < totalPages && <div ref={triggerRef}></div>}
-      </Masonry>
-    </Layout>
+          {currentPage < totalPages && <div ref={triggerRef}></div>}
+        </Masonry>
+      </Layout>
+    </>
   );
 };

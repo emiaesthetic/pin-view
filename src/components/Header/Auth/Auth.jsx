@@ -5,13 +5,12 @@ import { ReactComponent as LoginIcon } from './img/login.svg';
 import UserMenu from './UserMenu';
 
 import Button from '@/components/Button';
-import Error from '@/components/Error';
-import Preloader from '@/components/Preloader';
+import Notification from '@/components/Notification';
 import authUrl from '@/config/authConfig';
 import useAuth from '@/hooks/useAuth';
 
 export const Auth = () => {
-  const { user, error, loading, clearAuth } = useAuth();
+  const { user, error, clearAuth } = useAuth();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const handleLogout = () => {
@@ -20,8 +19,6 @@ export const Auth = () => {
   };
 
   const renderContent = () => {
-    if (loading) return <Preloader isLoading={loading} />;
-
     if (user) {
       return (
         <>
@@ -55,7 +52,7 @@ export const Auth = () => {
   return (
     <div className={style.auth}>
       {renderContent()}
-      <Error message={error} />
+      <Notification type="error" position="topRight" message={error} />
     </div>
   );
 };
