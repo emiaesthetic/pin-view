@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { likeStateReducer } from '../reaction/reactionSlice';
 
-import updatePin from '@/utils/updatePin';
+import { updateLike } from '@/utils/updatePin';
 
 const initialState = {
   pin: {},
@@ -26,15 +26,20 @@ const pinSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    resetPin: state => {
+      state.pin = {};
+      state.error = null;
+      state.loading = false;
+    },
   },
   extraReducers: builder => {
     builder.addCase(likeStateReducer, (state, action) => {
-      state.pin = updatePin(state.pin, action.payload);
+      state.pin = updateLike(state.pin, action.payload);
     });
   },
 });
 
-export const { pinRequest, pinRequestSuccess, pinRequestError } =
+export const { pinRequest, pinRequestSuccess, pinRequestError, resetPin } =
   pinSlice.actions;
 
 export default pinSlice.reducer;

@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
 
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ import Layout from '@/components/Layout';
 import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import useLike from '@/hooks/useLike';
 import usePin from '@/hooks/usePin';
+import { resetPin } from '@/store/pin/pinSlice';
 
 const downloadImage = async path => {
   try {
@@ -43,9 +45,11 @@ export const Pin = () => {
   const contentRef = useRef(null);
   const search = useSelector(state => state.gallery.search);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleComeBack = () => {
     navigate(`${search ? `/photos/${search}` : '/'}`);
+    dispatch(resetPin());
   };
 
   useLayoutEffect(() => {

@@ -1,4 +1,16 @@
-const updatePin = (pin, payload) => {
+export const updatePin = (pin, payload) => {
+  if (pin.id === payload.id && pin.photo.likes !== payload.photo.likes) {
+    return {
+      ...pin,
+      photo: {
+        ...pin.photo,
+        ...payload.photo,
+      },
+    };
+  }
+};
+
+export const updateLike = (pin, payload) => {
   if (pin.id === payload.id) {
     return {
       ...pin,
@@ -12,5 +24,3 @@ const updatePin = (pin, payload) => {
 
   return pin;
 };
-
-export default updatePin;

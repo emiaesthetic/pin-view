@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { pinRequestSuccess } from '../pin/pinSlice';
 import { likeStateReducer } from '../reaction/reactionSlice';
 
-import updatePin from '@/utils/updatePin';
+import { updatePin, updateLike } from '@/utils/updatePin';
 
 const initialState = {
   data: [],
@@ -54,9 +55,13 @@ const gallerySlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(likeStateReducer, (state, action) => {
-      state.data = state.data.map(photo => updatePin(photo, action.payload));
-    });
+    builder
+      .addCase(pinRequestSuccess, (state, action) => {
+        state.date = state.data.map(photo => updatePin(photo, action.payload));
+      })
+      .addCase(likeStateReducer, (state, action) => {
+        state.data = state.data.map(photo => updateLike(photo, action.payload));
+      });
   },
 });
 
