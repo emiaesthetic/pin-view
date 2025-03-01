@@ -50,10 +50,10 @@ const photosSlice = createSlice({
     },
     searchRequest: (state, action) => {
       state.data = [];
-      state.currentPage = 1;
-      state.totalPages = null;
       state.error = null;
       state.loading = true;
+      state.currentPage = 1;
+      state.totalPages = null;
       state.search = action.payload;
     },
   },
