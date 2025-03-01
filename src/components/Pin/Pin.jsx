@@ -11,6 +11,7 @@ import PinDescription from './PinDescription';
 import PinImage from './PinImage';
 
 import Layout from '@/components/Layout';
+import Notification from '@/components/Notification';
 import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import useLike from '@/hooks/useLike';
 import usePin from '@/hooks/usePin';
@@ -39,7 +40,7 @@ const downloadImage = async path => {
 
 export const Pin = () => {
   const { pinID } = useParams();
-  const { id, photo, user } = usePin(pinID);
+  const { id, photo, user, error } = usePin(pinID);
   const { handleLike } = useLike();
   const { headerHeight } = useHeaderHeight();
   const contentRef = useRef(null);
@@ -72,29 +73,36 @@ export const Pin = () => {
     window.addEventListener('resize', adjustHeight);
 
     return () => window.removeEventListener('resize', adjustHeight);
-  }, [headerHeight]);
+  }, [id, headerHeight]);
 
   return (
-    <article className={style.pin}>
-      <Layout>
-        <h1 className="visually-hidden">Pin: {photo?.description}</h1>
+    <>
+      {error && (
+        <Notification type="error" position="topRight" message={error} />
+      )}
+      {id && photo && user && (
+        <article className={style.pin}>
+          <Layout>
+            <h1 className="visually-hidden">Pin: {photo.description}</h1>
 
-        <div className={style.content} ref={contentRef}>
-          <div className={style.leftColumn}>
-            <PinImage {...photo} onComeBack={handleComeBack} />
-          </div>
+            <div className={style.content} ref={contentRef}>
+              <div className={style.leftColumn}>
+                <PinImage {...photo} onComeBack={handleComeBack} />
+              </div>
 
-          <div className={style.rightColumn}>
-            <PinButtonsGroup
-              {...photo}
-              onLike={() => handleLike(id, photo.liked, photo.likes)}
-              onDownload={() => downloadImage(photo.full)}
-            />
-            <PinDescription user={user} published={photo?.published} />
-            <PinComments />
-          </div>
-        </div>
-      </Layout>
-    </article>
+              <div className={style.rightColumn}>
+                <PinButtonsGroup
+                  {...photo}
+                  onLike={() => handleLike(id, photo.liked, photo.likes)}
+                  onDownload={() => downloadImage(photo.download)}
+                />
+                <PinDescription user={user} published={photo.published} />
+                <PinComments />
+              </div>
+            </div>
+          </Layout>
+        </article>
+      )}
+    </>
   );
 };
