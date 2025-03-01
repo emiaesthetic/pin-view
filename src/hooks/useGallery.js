@@ -6,12 +6,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {
   photosRequest,
   searchRequest,
-  resetPhotos,
-} from '@/store/photos/photosSlice';
+  resetGallery,
+} from '@/store/gallery/gallerySlice';
 
-const usePhotos = () => {
+const useGallery = () => {
   const { data, error, loading, currentPage, totalPages } = useSelector(
-    state => state.photos,
+    state => state.gallery,
   );
   const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const usePhotos = () => {
 
   useEffect(() => {
     if (prevTokenRef.current !== token) {
-      dispatch(resetPhotos());
+      dispatch(resetGallery());
       navigate('/');
       prevTokenRef.current = token;
     }
@@ -40,4 +40,4 @@ const usePhotos = () => {
   return { data, error, loading, currentPage, totalPages };
 };
 
-export default usePhotos;
+export default useGallery;

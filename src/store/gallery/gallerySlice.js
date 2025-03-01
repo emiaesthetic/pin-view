@@ -1,12 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import {
-  reactionRequestSuccess,
-  optimisticLikeReducer,
-  rollbackLikeReducer,
-} from '../reaction/reactionSlice';
+import { likeStateReducer } from '../reaction/reactionSlice';
 
-import updatePhoto from '@/utils/updatePhoto';
+import updatePin from '@/utils/updatePin';
 
 const initialState = {
   data: [],
@@ -17,8 +13,8 @@ const initialState = {
   search: '',
 };
 
-const photosSlice = createSlice({
-  name: 'photos',
+const gallerySlice = createSlice({
+  name: 'gallery',
   initialState,
   reducers: {
     photosRequest: state => {
@@ -33,14 +29,14 @@ const photosSlice = createSlice({
       state.currentPage += 1;
       state.totalPages = totalPages;
     },
-    photoRequestError: (state, action) => {
+    photosRequestError: (state, action) => {
       state.data = [];
       state.error = action.payload;
       state.loading = false;
       state.currentPage = 1;
       state.totalPages = null;
     },
-    resetPhotos: state => {
+    resetGallery: state => {
       state.data = [];
       state.error = null;
       state.loading = false;
@@ -58,40 +54,18 @@ const photosSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder
-      .addCase(reactionRequestSuccess, (state, action) => {
-        state.data = state.data.map(photo =>
-          updatePhoto(photo, action.payload),
-        );
-      })
-      .addCase(optimisticLikeReducer, (state, action) => {
-        state.data = state.data.map(photo =>
-          updatePhoto(photo, {
-            id: action.payload.photoID,
-            liked: !action.payload.currentLikeState,
-            likes:
-              action.payload.count + (action.payload.currentLikeState ? -1 : 1),
-          }),
-        );
-      })
-      .addCase(rollbackLikeReducer, (state, action) => {
-        state.data = state.data.map(photo =>
-          updatePhoto(photo, {
-            id: action.payload.photoID,
-            liked: action.payload.currentLikeState,
-            likes: action.payload.count,
-          }),
-        );
-      });
+    builder.addCase(likeStateReducer, (state, action) => {
+      state.data = state.data.map(photo => updatePin(photo, action.payload));
+    });
   },
 });
 
 export const {
-  photoRequestError,
   photosRequest,
   photosRequestSuccess,
-  resetPhotos,
+  photosRequestError,
+  resetGallery,
   searchRequest,
-} = photosSlice.actions;
+} = gallerySlice.actions;
 
-export default photosSlice.reducer;
+export default gallerySlice.reducer;

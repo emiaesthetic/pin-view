@@ -41,7 +41,7 @@ export const Pin = () => {
   const { handleLike } = useLike();
   const { headerHeight } = useHeaderHeight();
   const contentRef = useRef(null);
-  const search = useSelector(state => state.photos.search);
+  const search = useSelector(state => state.gallery.search);
   const navigate = useNavigate();
 
   const handleComeBack = () => {
@@ -82,10 +82,9 @@ export const Pin = () => {
 
           <div className={style.rightColumn}>
             <PinButtonsGroup
-              id={id}
-              onLike={handleLike}
-              onDownload={downloadImage}
               {...photo}
+              onLike={() => handleLike(id, photo.liked, photo.likes)}
+              onDownload={() => downloadImage(photo.full)}
             />
             <PinDescription user={user} published={photo?.published} />
             <PinComments />

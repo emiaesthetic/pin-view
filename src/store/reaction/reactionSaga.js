@@ -3,10 +3,8 @@ import { put, select, takeLatest } from 'redux-saga/effects';
 
 import {
   reactionRequest,
-  reactionRequestSuccess,
+  likeStateReducer,
   reactionRequestError,
-  optimisticLikeReducer,
-  rollbackLikeReducer,
 } from './reactionSlice';
 
 import { API_URL } from '@/config/config';
@@ -15,25 +13,19 @@ function* fetchReaction(action) {
   const token = yield select(state => state.token.token);
   if (!token) return;
 
-  const { photoID, currentLikeState, count } = action.payload;
+  const { id, liked, likes } = action.payload;
 
   try {
-    yield put(optimisticLikeReducer({ photoID, currentLikeState, count }));
-
-    const request = yield axios(`${API_URL}/photos/${photoID}/like`, {
-      method: currentLikeState ? 'DELETE' : 'POST',
+    yield put(likeStateReducer({ id, liked, likes }));
+    yield axios(`${API_URL}/photos/${id}/like`, {
+      method: liked ? 'DELETE' : 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    const {
-      photo: { id, likes, liked_by_user: liked },
-    } = request.data;
-
-    yield put(reactionRequestSuccess({ id, likes, liked }));
   } catch (error) {
-    yield put(rollbackLikeReducer({ photoID, currentLikeState, count }));
     yield put(reactionRequestError(error.message));
+    yield put(likeStateReducer({ id, liked, likes }));
   }
 }
 

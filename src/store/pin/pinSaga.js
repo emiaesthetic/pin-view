@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { put, select, takeLatest } from 'redux-saga/effects';
 
-import { pinRequest, pinRequestSuccess, pinRequestError } from './photoSlice';
+import { pinRequest, pinRequestSuccess, pinRequestError } from './pinSlice';
 
 import { API_URL, ACCESS_KEY } from '@/config/config';
-import transformPhotoData from '@/utils/transformPhotoData';
+import transformPinData from '@/utils/transformPinData';
 
 function* fetchPin(action) {
   const pinID = action.payload;
@@ -16,7 +16,7 @@ function* fetchPin(action) {
         Authorization: token ? `Bearer ${token}` : `Client-ID ${ACCESS_KEY}`,
       },
     });
-    const photo = transformPhotoData(request.data);
+    const photo = transformPinData(request.data);
 
     yield put(pinRequestSuccess(photo));
   } catch (error) {

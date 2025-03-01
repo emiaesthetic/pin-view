@@ -7,7 +7,7 @@ import { ReactComponent as SearchIcon } from './img/search.svg';
 import style from './Search.module.css';
 
 import Button from '@/components/Button';
-import { searchRequest } from '@/store/photos/photosSlice';
+import { searchRequest } from '@/store/gallery/gallerySlice';
 
 export const Search = () => {
   const [search, setSearch] = useState('');

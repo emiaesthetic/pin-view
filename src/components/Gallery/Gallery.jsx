@@ -10,13 +10,13 @@ import Layout from '@/components/Layout';
 import Notification from '@/components/Notification';
 import Preloader from '@/components/Preloader';
 import { useScroll } from '@/context/ScrollContext';
+import useGallery from '@/hooks/useGallery';
 import useLike from '@/hooks/useLike';
 import useLoader from '@/hooks/useLoader';
-import usePhotos from '@/hooks/usePhotos';
-import { photosRequest } from '@/store/photos/photosSlice';
+import { photosRequest } from '@/store/gallery/gallerySlice';
 
 export const Gallery = () => {
-  const { data, error, loading, currentPage, totalPages } = usePhotos();
+  const { data, error, loading, currentPage, totalPages } = useGallery();
   const { scrollPosition, setScrollPosition } = useScroll();
   const { handleLike } = useLike();
   const { showLoader } = useLoader(loading);
@@ -84,16 +84,12 @@ export const Gallery = () => {
           columnClassName={style.column}
           role="list"
         >
-          {data.map(photoData => (
+          {data.map(pin => (
             <Item
-              key={photoData.id}
-              {...photoData}
+              key={pin.id}
+              {...pin}
               onLike={() =>
-                handleLike(
-                  photoData.id,
-                  photoData.photo.liked,
-                  photoData.photo.likes,
-                )
+                handleLike(pin.id, pin.photo.liked, pin.photo.likes)
               }
               onPhoto={handleOpenPhoto}
             />

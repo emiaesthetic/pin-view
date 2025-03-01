@@ -6,12 +6,12 @@ import { tokenRequestSuccess, tokenRequestError } from '../token/tokenSlice';
 import {
   photosRequest,
   photosRequestSuccess,
-  photoRequestError,
+  photosRequestError,
   searchRequest,
-} from './photosSlice';
+} from './gallerySlice';
 
 import { API_URL, ACCESS_KEY } from '@/config/config';
-import transformPhotoData from '@/utils/transformPhotoData';
+import transformPinData from '@/utils/transformPinData';
 
 function* fetchPhotos() {
   const { token, code } = yield select(state => state.token);
@@ -25,7 +25,7 @@ function* fetchPhotos() {
   }
 
   const { search, currentPage, totalPages } = yield select(
-    state => state.photos,
+    state => state.gallery,
   );
 
   if (currentPage === totalPages) return;
@@ -38,7 +38,7 @@ function* fetchPhotos() {
 }
 function* fetchRegularPhotos() {
   const token = yield select(state => state.token.token);
-  const currentPage = yield select(state => state.photos.currentPage);
+  const currentPage = yield select(state => state.gallery.currentPage);
 
   try {
     const request = yield axios(`${API_URL}/photos`, {
@@ -52,18 +52,18 @@ function* fetchRegularPhotos() {
       },
     });
 
-    const data = request.data.map(transformPhotoData);
+    const data = request.data.map(transformPinData);
     const totalPages = request.headers['x-total'];
 
     yield put(photosRequestSuccess({ data, totalPages }));
   } catch (error) {
-    yield put(photoRequestError(error.message));
+    yield put(photosRequestError(error.message));
   }
 }
 
 function* fetchSearchPhotos() {
   const token = yield select(state => state.token.token);
-  const { search, currentPage } = yield select(state => state.photos);
+  const { search, currentPage } = yield select(state => state.gallery);
 
   try {
     const request = yield axios(`${API_URL}/search/photos`, {
@@ -78,12 +78,12 @@ function* fetchSearchPhotos() {
       },
     });
 
-    const data = request.data.results.map(transformPhotoData);
+    const data = request.data.results.map(transformPinData);
     const totalPages = request.headers['x-total'];
 
     yield put(photosRequestSuccess({ data, totalPages }));
   } catch (error) {
-    yield put(photoRequestError(error.message));
+    yield put(photosRequestError(error.message));
   }
 }
 

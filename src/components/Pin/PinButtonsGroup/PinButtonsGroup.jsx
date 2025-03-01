@@ -5,35 +5,26 @@ import style from './PinButtonsGroup.module.css';
 
 import Button from '@/components/Button';
 
-export const PinButtonsGroup = ({
-  id,
-  full,
-  likes,
-  liked,
-  onLike,
-  onDownload,
-}) => (
+export const PinButtonsGroup = ({ likes, liked, onLike, onDownload }) => (
   <div className={style.buttonsGroup}>
     <div className={style.favorite}>
       <Button
         kind="icon"
         color={liked ? 'accent' : 'alphaBG'}
         aria-label="Add to favorites"
-        onClick={() => onLike(id, liked, likes)}
+        onClick={onLike}
       >
         <FavoriteIcon aria-hidden="true" />
       </Button>
       <span>{likes}</span>
     </div>
-    <Button kind="text" color="accentBG" onClick={() => onDownload(full)}>
+    <Button kind="text" color="accentBG" onClick={onDownload}>
       Download
     </Button>
   </div>
 );
 
 PinButtonsGroup.propTypes = {
-  id: PropTypes.string,
-  full: PropTypes.string,
   likes: PropTypes.number,
   liked: PropTypes.bool,
   onLike: PropTypes.func,
