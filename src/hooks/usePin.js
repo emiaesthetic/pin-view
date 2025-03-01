@@ -6,7 +6,7 @@ import { pinRequest } from '@/store/pin/pinSlice';
 
 const usePin = pinID => {
   const { id, photo, user } = useSelector(state => state.pin.pin);
-  const error = useSelector(state => state.pin.error);
+  const { error, loading } = useSelector(state => state.pin);
   const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ const usePin = pinID => {
     }
   }, [pinID, token, dispatch]);
 
-  return { id, photo, user, error };
+  return { id, photo, user, error, loading };
 };
 
 export default usePin;
