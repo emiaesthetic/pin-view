@@ -20,13 +20,13 @@
 }
 
 @media (hover: hover) {
-  .input:hover {
+  .form:hover .input {
     background-color: var(--gray-light);
   }
 }
 
 @media (hover: none) {
-  .input:active {
+  .form:hover .input {
     background-color: var(--gray-light);
   }
 }

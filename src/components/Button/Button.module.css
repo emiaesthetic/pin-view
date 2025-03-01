@@ -80,6 +80,18 @@
   height: var(--height);
 }
 
+@media (hover: hover) {
+  .input:hover {
+    background-color: transparent;
+  }
+}
+
+@media (hover: none) {
+  .input:active {
+    background-color: transparent;
+  }
+}
+
 .back {
   position: absolute;
   top: 15px;
