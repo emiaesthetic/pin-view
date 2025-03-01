@@ -12,7 +12,7 @@ import PinImage from './PinImage';
 import Layout from '@/components/Layout';
 import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import useLike from '@/hooks/useLike';
-import usePhoto from '@/hooks/usePhoto';
+import usePin from '@/hooks/usePin';
 
 const downloadImage = async path => {
   try {
@@ -36,8 +36,8 @@ const downloadImage = async path => {
 };
 
 export const Pin = () => {
-  const { id } = useParams();
-  const { id: photoID, photo, user } = usePhoto(id);
+  const { pinID } = useParams();
+  const { id, photo, user } = usePin(pinID);
   const { handleLike } = useLike();
   const { headerHeight } = useHeaderHeight();
   const contentRef = useRef(null);
@@ -82,7 +82,7 @@ export const Pin = () => {
 
           <div className={style.rightColumn}>
             <PinButtonsGroup
-              id={photoID}
+              id={id}
               onLike={handleLike}
               onDownload={downloadImage}
               {...photo}

@@ -29,7 +29,7 @@ const App = () => {
       >
         <Route path="/" element={<Gallery />} />
         <Route path="/photos/:search" element={<Gallery />} />
-        <Route path="/photo/:id" element={<Pin />} />
+        <Route path="/photo/:pinID" element={<Pin />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

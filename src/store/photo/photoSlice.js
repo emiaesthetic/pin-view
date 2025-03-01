@@ -9,24 +9,24 @@ import {
 import updatePhoto from '@/utils/updatePhoto';
 
 const initialState = {
-  photo: {},
+  pin: {},
   error: null,
   loading: false,
 };
 
-const photoSlice = createSlice({
-  name: 'photo',
+const pinSlice = createSlice({
+  name: 'pin',
   initialState,
   reducers: {
-    photoRequest: state => {
+    pinRequest: state => {
       state.error = null;
       state.loading = true;
     },
-    photoRequestSuccess: (state, action) => {
-      state.photo = action.payload;
+    pinRequestSuccess: (state, action) => {
+      state.pin = action.payload;
       state.loading = false;
     },
-    photoRequestError: (state, action) => {
+    pinRequestError: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
@@ -34,10 +34,10 @@ const photoSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(reactionRequestSuccess, (state, action) => {
-        state.photo = updatePhoto(state.photo, action.payload);
+        state.pin = updatePhoto(state.pin, action.payload);
       })
       .addCase(optimisticLikeReducer, (state, action) => {
-        state.photo = updatePhoto(state.photo, {
+        state.pin = updatePhoto(state.pin, {
           id: action.payload.photoID,
           liked: !action.payload.currentLikeState,
           likes:
@@ -45,7 +45,7 @@ const photoSlice = createSlice({
         });
       })
       .addCase(rollbackLikeReducer, (state, action) => {
-        state.photo = updatePhoto(state.photo, {
+        state.pin = updatePhoto(state.pin, {
           id: action.payload.photoID,
           liked: action.payload.currentLikeState,
           likes: action.payload.count,
@@ -54,7 +54,7 @@ const photoSlice = createSlice({
   },
 });
 
-export const { photoRequest, photoRequestSuccess, photoRequestError } =
-  photoSlice.actions;
+export const { pinRequest, pinRequestSuccess, pinRequestError } =
+  pinSlice.actions;
 
-export default photoSlice.reducer;
+export default pinSlice.reducer;
