@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ import useLike from '@/hooks/useLike';
 import useLoader from '@/hooks/useLoader';
 import usePin from '@/hooks/usePin';
 import { resetPin } from '@/store/pin/pinSlice';
+import debounceRaf from '@/utils/debounce';
 
 const downloadImage = async path => {
   try {
@@ -57,27 +58,27 @@ export const Pin = () => {
     dispatch(resetPin());
   };
 
+  const handleResize = useCallback(() => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    const root = document.querySelector(':root');
+    const padding = getComputedStyle(root).getPropertyValue('--padding-layout');
+
+    if (window.innerWidth > 768) {
+      content.style.maxHeight = `calc(100vh - ${headerHeight}px - ${padding} * 2)`;
+    } else {
+      content.style.maxHeight = 'unset';
+    }
+  }, [headerHeight]);
+
   useLayoutEffect(() => {
-    const adjustHeight = () => {
-      const content = contentRef.current;
-      if (!content) return;
+    const debounceSize = debounceRaf(handleResize);
+    debounceSize();
+    window.addEventListener('resize', debounceSize);
 
-      const root = document.querySelector(':root');
-      const padding =
-        getComputedStyle(root).getPropertyValue('--padding-layout');
-
-      if (window.innerWidth > 768) {
-        content.style.maxHeight = `calc(100vh - ${headerHeight}px - ${padding} * 2)`;
-      } else {
-        content.style.maxHeight = 'unset';
-      }
-    };
-
-    adjustHeight();
-    window.addEventListener('resize', adjustHeight);
-
-    return () => window.removeEventListener('resize', adjustHeight);
-  }, [showLoader, id, headerHeight]);
+    return () => window.removeEventListener('resize', debounceSize);
+  }, [id, showLoader, handleResize]);
 
   if (showLoader) return <Preloader />;
 
