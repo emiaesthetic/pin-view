@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import { tokenRequest } from '@/store/token/tokenSlice';
 
 export const Header = () => {
+  const [search, setSearch] = useState('');
   const [searchParams] = useSearchParams();
   const { setHeaderHeight } = useHeaderHeight();
   const headerRef = useRef(null);
@@ -45,8 +46,8 @@ export const Header = () => {
       <Layout>
         <div className={style.content}>
           <Logo />
-          <Search />
-          <Auth />
+          <Search search={search} setSearch={setSearch} />
+          <Auth clearSearch={() => setSearch('')} />
         </div>
       </Layout>
     </header>

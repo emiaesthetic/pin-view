@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,8 +8,7 @@ import style from './Search.module.css';
 import Button from '@/components/Button';
 import { searchRequest } from '@/store/gallery/gallerySlice';
 
-export const Search = () => {
-  const [search, setSearch] = useState('');
+export const Search = ({ search, setSearch }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,4 +32,9 @@ export const Search = () => {
       </Button>
     </form>
   );
+};
+
+Search.propTypes = {
+  search: PropTypes.string,
+  setSearch: PropTypes.func,
 };

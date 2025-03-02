@@ -3,7 +3,7 @@ import { put, select, takeLatest } from 'redux-saga/effects';
 
 import {
   reactionRequest,
-  likeStateReducer,
+  updateReactionState,
   reactionRequestError,
 } from './reactionSlice';
 
@@ -13,10 +13,10 @@ function* fetchReaction(action) {
   const token = yield select(state => state.token.token);
   if (!token) return;
 
-  const { id, liked, likes } = action.payload;
+  const { id, liked } = action.payload;
 
   try {
-    yield put(likeStateReducer({ id, liked, likes }));
+    yield put(updateReactionState(id));
     yield axios(`${API_URL}/photos/${id}/like`, {
       method: liked ? 'DELETE' : 'POST',
       headers: {
@@ -25,7 +25,7 @@ function* fetchReaction(action) {
     });
   } catch (error) {
     yield put(reactionRequestError(error.message));
-    yield put(likeStateReducer({ id, liked, likes }));
+    yield put(updateReactionState(id));
   }
 }
 

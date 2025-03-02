@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { authRequest, authLogout } from '@/store/auth/authSlice';
+import { resetGallery } from '@/store/gallery/gallerySlice';
+import { resetPin } from '@/store/pin/pinSlice';
 import { clearToken } from '@/store/token/tokenSlice';
 
 const useAuth = () => {
@@ -21,6 +24,7 @@ const useAuth = () => {
 
   const error = tokenError || authError || null;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (tokenLoading) {
@@ -40,6 +44,10 @@ const useAuth = () => {
   }, [user, error, authLoading, dispatch]);
 
   const clearAuth = () => {
+    navigate('/');
+
+    dispatch(resetPin());
+    dispatch(resetGallery());
     dispatch(clearToken());
     dispatch(authLogout());
   };

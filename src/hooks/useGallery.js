@@ -1,43 +1,36 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import {
-  photosRequest,
-  searchRequest,
-  resetGallery,
-} from '@/store/gallery/gallerySlice';
+import { photosRequest, searchRequest } from '@/store/gallery/gallerySlice';
 
 const useGallery = () => {
-  const { data, error, loading, currentPage, totalPages } = useSelector(
-    state => state.gallery,
-  );
-  const token = useSelector(state => state.token.token);
-  const dispatch = useDispatch();
   const { search } = useParams();
-  const navigate = useNavigate();
-  const prevTokenRef = useRef(token);
+
+  const { data, error, loading, currentPage, totalPages, isCompleted } =
+    useSelector(state => state.gallery);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (prevTokenRef.current !== token) {
-      dispatch(resetGallery());
-      navigate('/');
-      prevTokenRef.current = token;
-    }
-  }, [token, navigate, dispatch]);
-
-  useEffect(() => {
-    if (data.length !== 0 || error || loading) return;
+    if (loading || error || isCompleted) return;
 
     if (search !== undefined && search.trim() !== '') {
       dispatch(searchRequest(search));
     } else {
       dispatch(photosRequest());
     }
-  }, [data, search, error, loading, dispatch]);
+  }, [search, error, loading, isCompleted, dispatch]);
 
-  return { data, error, loading, currentPage, totalPages };
+  return {
+    data,
+    error,
+    loading,
+    totalPages,
+    currentPage,
+    isCompleted,
+  };
 };
 
 export default useGallery;

@@ -10,15 +10,23 @@ function* fetchPin(action) {
   const pinID = action.payload;
   const token = yield select(state => state.token.token);
 
+  const pins = yield select(state => state.gallery.data);
+  const pin = pins.find(pin => pin.id === pinID);
+
+  if (pin) {
+    yield put(pinRequestSuccess(pin));
+    return;
+  }
+
   try {
     const request = yield axios(`${API_URL}/photos/${pinID}`, {
       headers: {
         Authorization: token ? `Bearer ${token}` : `Client-ID ${ACCESS_KEY}`,
       },
     });
-    const photo = transformPinData(request.data);
+    const pin = transformPinData(request.data);
 
-    yield put(pinRequestSuccess(photo));
+    yield put(pinRequestSuccess(pin));
   } catch (error) {
     yield put(pinRequestError(error.message));
   }

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { likeStateReducer } from '../reaction/reactionSlice';
+import { updateReactionState } from '../reaction/reactionSlice';
 
-import { updateLike } from '@/utils/updatePin';
+import toggleLike from '@/utils/toggleLike';
 
 const initialState = {
   pin: {},
@@ -26,15 +26,11 @@ const pinSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    resetPin: state => {
-      state.pin = {};
-      state.error = null;
-      state.loading = false;
-    },
+    resetPin: () => initialState,
   },
   extraReducers: builder => {
-    builder.addCase(likeStateReducer, (state, action) => {
-      state.pin = updateLike(state.pin, action.payload);
+    builder.addCase(updateReactionState, (state, action) => {
+      state.pin = toggleLike(state.pin, action.payload);
     });
   },
 });

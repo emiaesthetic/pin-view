@@ -16,12 +16,15 @@ import useLoader from '@/hooks/useLoader';
 import { photosRequest } from '@/store/gallery/gallerySlice';
 
 export const Gallery = () => {
-  const { data, error, loading, currentPage, totalPages } = useGallery();
+  const { data, error, loading, currentPage, totalPages, isCompleted } =
+    useGallery();
   const { scrollPosition, setScrollPosition } = useScroll();
-  const { handleLike } = useLike();
+  const { likeError, handleLike } = useLike();
   const { showLoader } = useLoader(loading);
+
   const dispatch = useDispatch();
   const triggerRef = useRef();
+
   const breakpointColumnsObj = {
     default: 5,
     1024: 4,
@@ -56,11 +59,11 @@ export const Gallery = () => {
     return () => observer.disconnect();
   }, [data.length, dispatch]);
 
-  if (error) {
+  if (isCompleted && error) {
     return <Notification type="error" position="topRight" message={error} />;
   }
 
-  if (!showLoader && !data.length) {
+  if (isCompleted && !data.length) {
     return (
       <Notification
         type="neutral"
@@ -70,34 +73,37 @@ export const Gallery = () => {
     );
   }
 
-  return (
-    <>
-      {showLoader && <Preloader />}
-      <Layout>
-        <h1 className="visually-hidden">
-          Pin View: Your Personal Unsplash Gallery
-        </h1>
+  if (isCompleted && data.length) {
+    return (
+      <>
+        {showLoader && <Preloader />}
+        <Layout>
+          <h1 className="visually-hidden">
+            Pin View: Your Personal Unsplash Gallery
+          </h1>
 
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className={style.masonry}
-          columnClassName={style.column}
-          role="list"
-        >
-          {data.map(pin => (
-            <Item
-              key={pin.id}
-              {...pin}
-              onLike={() =>
-                handleLike(pin.id, pin.photo.liked, pin.photo.likes)
-              }
-              onPhoto={handleOpenPhoto}
-            />
-          ))}
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className={style.masonry}
+            columnClassName={style.column}
+            role="list"
+          >
+            {data.map(pin => (
+              <Item
+                key={pin.id}
+                {...pin}
+                onLike={() => handleLike(pin.id, pin.photo.liked)}
+                onPhoto={handleOpenPhoto}
+              />
+            ))}
 
-          {currentPage < totalPages && <div ref={triggerRef}></div>}
-        </Masonry>
-      </Layout>
-    </>
-  );
+            {currentPage < totalPages && <div ref={triggerRef}></div>}
+          </Masonry>
+        </Layout>
+        {likeError && (
+          <Notification type="error" position="topRight" message={likeError} />
+        )}
+      </>
+    );
+  }
 };

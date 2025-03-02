@@ -30,12 +30,7 @@ const tokenSlice = createSlice({
       state.token = action.payload;
       state.loading = false;
     },
-    clearToken: state => {
-      state.token = null;
-      state.code = null;
-      state.error = null;
-      state.loading = false;
-    },
+    clearToken: () => initialState,
   },
 });
 

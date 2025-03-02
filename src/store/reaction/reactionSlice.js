@@ -2,8 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   id: null,
-  liked: null,
-  likes: null,
   error: null,
 };
 
@@ -14,10 +12,8 @@ const reactionSlice = createSlice({
     reactionRequest: state => {
       state.error = null;
     },
-    likeStateReducer: (state, action) => {
-      state.id = action.payload.id;
-      state.liked = action.payload.liked;
-      state.likes = action.payload.likes;
+    updateReactionState: (state, action) => {
+      state.id = action.payload;
     },
     reactionRequestError: (state, action) => {
       state.error = action.payload;
@@ -25,7 +21,7 @@ const reactionSlice = createSlice({
   },
 });
 
-export const { reactionRequest, likeStateReducer, reactionRequestError } =
+export const { reactionRequest, updateReactionState, reactionRequestError } =
   reactionSlice.actions;
 
 export default reactionSlice.reducer;

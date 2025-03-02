@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import style from './Pin.module.css';
 import PinButtonsGroup from './PinButtonsGroup';
@@ -41,13 +41,14 @@ const downloadImage = async path => {
 };
 
 export const Pin = () => {
-  const { pinID } = useParams();
-  const { id, photo, user, error, loading } = usePin(pinID);
-  const { handleLike } = useLike();
+  const search = useSelector(state => state.gallery.search);
+
+  const { id, photo, user, error, loading } = usePin();
+  const { likeError, handleLike } = useLike();
   const { showLoader } = useLoader(loading);
   const { headerHeight } = useHeaderHeight();
+
   const contentRef = useRef(null);
-  const search = useSelector(state => state.gallery.search);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -86,27 +87,30 @@ export const Pin = () => {
 
   if (id && photo && user) {
     return (
-      <article className={style.pin}>
-        <Layout>
-          <h1 className="visually-hidden">Pin: {photo.description}</h1>
+      <>
+        <article className={style.pin}>
+          <Layout>
+            <h1 className="visually-hidden">Pin: {photo.description}</h1>
 
-          <div className={style.content} ref={contentRef}>
-            <div className={style.leftColumn}>
-              <PinImage {...photo} onComeBack={handleComeBack} />
-            </div>
+            <div className={style.content} ref={contentRef}>
+              <div className={style.leftColumn}>
+                <PinImage {...photo} onComeBack={handleComeBack} />
+              </div>
 
-            <div className={style.rightColumn}>
-              <PinButtonsGroup
-                {...photo}
-                onLike={() => handleLike(id, photo.liked, photo.likes)}
-                onDownload={() => downloadImage(photo.download)}
-              />
-              <PinDescription user={user} published={photo.published} />
-              <PinComments />
+              <div className={style.rightColumn}>
+                <PinButtonsGroup
+                  {...photo}
+                  onLike={() => handleLike(id, photo.liked)}
+                  onDownload={() => downloadImage(photo.download)}
+                />
+                <PinDescription user={user} published={photo.published} />
+                <PinComments />
+              </div>
             </div>
-          </div>
-        </Layout>
-      </article>
+          </Layout>
+        </article>
+        <Notification type="error" position="topRight" message={likeError} />
+      </>
     );
   }
 };

@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { pinRequestSuccess } from '../pin/pinSlice';
-import { likeStateReducer } from '../reaction/reactionSlice';
+import { updateReactionState } from '../reaction/reactionSlice';
 
-import { updatePin, updateLike } from '@/utils/updatePin';
+import toggleLike from '@/utils/toggleLike';
 
 const initialState = {
   data: [],
@@ -12,6 +11,7 @@ const initialState = {
   currentPage: 1,
   totalPages: null,
   search: '',
+  isCompleted: false,
 };
 
 const gallerySlice = createSlice({
@@ -29,6 +29,7 @@ const gallerySlice = createSlice({
       state.loading = false;
       state.currentPage += 1;
       state.totalPages = totalPages;
+      state.isCompleted = true;
     },
     photosRequestError: (state, action) => {
       state.data = [];
@@ -36,14 +37,7 @@ const gallerySlice = createSlice({
       state.loading = false;
       state.currentPage = 1;
       state.totalPages = null;
-    },
-    resetGallery: state => {
-      state.data = [];
-      state.error = null;
-      state.loading = false;
-      state.currentPage = 1;
-      state.totalPages = null;
-      state.search = '';
+      state.isCompleted = true;
     },
     searchRequest: (state, action) => {
       state.data = [];
@@ -52,16 +46,14 @@ const gallerySlice = createSlice({
       state.currentPage = 1;
       state.totalPages = null;
       state.search = action.payload;
+      state.isCompleted = false;
     },
+    resetGallery: () => initialState,
   },
   extraReducers: builder => {
-    builder
-      .addCase(pinRequestSuccess, (state, action) => {
-        state.date = state.data.map(photo => updatePin(photo, action.payload));
-      })
-      .addCase(likeStateReducer, (state, action) => {
-        state.data = state.data.map(photo => updateLike(photo, action.payload));
-      });
+    builder.addCase(updateReactionState, (state, action) => {
+      state.data = state.data.map(photo => toggleLike(photo, action.payload));
+    });
   },
 });
 

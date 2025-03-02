@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import PropTypes from 'prop-types';
+
 import style from './Auth.module.css';
 import { ReactComponent as LoginIcon } from './img/login.svg';
 import UserMenu from './UserMenu';
@@ -9,13 +11,14 @@ import Notification from '@/components/Notification';
 import authUrl from '@/config/authConfig';
 import useAuth from '@/hooks/useAuth';
 
-export const Auth = () => {
+export const Auth = ({ clearSearch }) => {
   const { user, error, clearAuth } = useAuth();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const handleLogout = () => {
-    setMenuIsOpen(false);
+    clearSearch();
     clearAuth();
+    setMenuIsOpen(false);
   };
 
   const renderContent = () => {
@@ -55,4 +58,8 @@ export const Auth = () => {
       <Notification type="error" position="topRight" message={error} />
     </div>
   );
+};
+
+Auth.propTypes = {
+  clearSearch: PropTypes.func,
 };
