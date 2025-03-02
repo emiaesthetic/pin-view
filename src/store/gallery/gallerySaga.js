@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { call, put, select, take, takeLatest } from 'redux-saga/effects';
 
+import { authRequestSuccess, authRequestError } from '../auth/authSlice';
 import { tokenRequestSuccess, tokenRequestError } from '../token/tokenSlice';
 
 import {
@@ -14,16 +15,19 @@ import { API_URL, ACCESS_KEY } from '@/services/config';
 import transformPinData from '@/utils/transformPinData';
 
 function* fetchPhotos() {
-  const { token, code } = yield select(state => state.token);
+  const code = yield select(state => state.token.code);
 
-  if (code && !token) {
-    yield take(
-      action =>
-        action.type === tokenRequestSuccess.type ||
-        action.type === tokenRequestError.type,
-    );
+  if (code) {
+    const tokenAction = yield take([
+      tokenRequestSuccess.type,
+      tokenRequestError.type,
+    ]);
+
+    if (tokenAction.type === tokenRequestSuccess.type) {
+      yield take([authRequestSuccess.type, authRequestError.type]);
+    }
   }
-
+  const token = yield select(state => state.token.token);
   const { search, currentPage, totalPages } = yield select(
     state => state.gallery,
   );
@@ -31,13 +35,12 @@ function* fetchPhotos() {
   if (currentPage === totalPages) return;
 
   if (search) {
-    yield call(fetchSearchPhotos);
+    yield call(fetchSearchPhotos, token);
   } else {
-    yield call(fetchRegularPhotos);
+    yield call(fetchRegularPhotos, token);
   }
 }
-function* fetchRegularPhotos() {
-  const token = yield select(state => state.token.token);
+function* fetchRegularPhotos(token) {
   const currentPage = yield select(state => state.gallery.currentPage);
 
   try {
@@ -61,8 +64,7 @@ function* fetchRegularPhotos() {
   }
 }
 
-function* fetchSearchPhotos() {
-  const token = yield select(state => state.token.token);
+function* fetchSearchPhotos(token) {
   const { search, currentPage } = yield select(state => state.gallery);
 
   try {

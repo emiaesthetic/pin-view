@@ -12,6 +12,7 @@ const initialState = {
   totalPages: null,
   search: '',
   isCompleted: false,
+  isSearchCleared: false,
 };
 
 const gallerySlice = createSlice({
@@ -21,6 +22,7 @@ const gallerySlice = createSlice({
     photosRequest: state => {
       state.error = null;
       state.loading = state.currentPage === 1;
+      state.isSearchCleared = false;
     },
     photosRequestSuccess: (state, action) => {
       const { data, totalPages } = action.payload;
@@ -48,7 +50,13 @@ const gallerySlice = createSlice({
       state.search = action.payload;
       state.isCompleted = false;
     },
-    resetGallery: () => initialState,
+    resetGallery: state => {
+      const isSearchCleared = !!state.search;
+      return {
+        ...initialState,
+        isSearchCleared,
+      };
+    },
   },
   extraReducers: builder => {
     builder.addCase(updateReactionState, (state, action) => {
