@@ -8,11 +8,14 @@ import UserMenu from './UserMenu';
 import { ReactComponent as LoginIcon } from '@/assets/img/login.svg';
 import Button from '@/components/Button';
 import Notification from '@/components/Notification';
+import Preloader from '@/components/Preloader';
 import useAuth from '@/hooks/useAuth';
+import useLoader from '@/hooks/useLoader';
 import authUrl from '@/services/authConfig';
 
 export const Auth = ({ clearSearch }) => {
-  const { user, error, clearAuth } = useAuth();
+  const { user, error, loading, clearAuth } = useAuth();
+  const { showLoader } = useLoader(loading);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const handleLogout = () => {
@@ -53,10 +56,13 @@ export const Auth = ({ clearSearch }) => {
   };
 
   return (
-    <div className={style.auth}>
-      {renderContent()}
-      <Notification type="error" position="topRight" message={error} />
-    </div>
+    <>
+      {showLoader && <Preloader />}
+      <div className={style.auth}>
+        {renderContent()}
+        <Notification type="error" position="topRight" message={error} />
+      </div>
+    </>
   );
 };
 

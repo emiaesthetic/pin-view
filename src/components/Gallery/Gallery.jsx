@@ -8,18 +8,14 @@ import Item from './Item';
 
 import Layout from '@/components/Layout';
 import Notification from '@/components/Notification';
-import Preloader from '@/components/Preloader';
 import { useScroll } from '@/context/ScrollContext';
 import useGallery from '@/hooks/useGallery';
 import useLike from '@/hooks/useLike';
-import useLoader from '@/hooks/useLoader';
 import { photosRequest } from '@/store/gallery/gallerySlice';
 
 export const Gallery = () => {
-  const { data, error, loading, currentPage, totalPages, isCompleted } =
-    useGallery();
+  const { data, error, currentPage, totalPages, isCompleted } = useGallery();
   const { likeError, handleLike } = useLike();
-  const { showLoader } = useLoader(loading);
   const { scrollPosition, setScrollPosition } = useScroll();
 
   const triggerRef = useRef();
@@ -76,7 +72,6 @@ export const Gallery = () => {
   if (isCompleted && data.length) {
     return (
       <>
-        {showLoader && <Preloader />}
         <Layout>
           <h1 className="visually-hidden">
             Pin View: Your Personal Unsplash Gallery

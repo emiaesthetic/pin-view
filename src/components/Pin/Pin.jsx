@@ -12,10 +12,8 @@ import PinImage from './PinImage';
 
 import Layout from '@/components/Layout';
 import Notification from '@/components/Notification';
-import Preloader from '@/components/Preloader';
 import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import useLike from '@/hooks/useLike';
-import useLoader from '@/hooks/useLoader';
 import usePin from '@/hooks/usePin';
 import { resetPin } from '@/store/pin/pinSlice';
 import debounceRaf from '@/utils/debounce';
@@ -44,9 +42,8 @@ const downloadImage = async path => {
 export const Pin = () => {
   const search = useSelector(state => state.gallery.search);
 
-  const { id, photo, user, error, loading } = usePin();
+  const { id, photo, user, error } = usePin();
   const { likeError, handleLike } = useLike();
-  const { showLoader } = useLoader(loading);
   const { headerHeight } = useHeaderHeight();
 
   const contentRef = useRef(null);
@@ -78,9 +75,7 @@ export const Pin = () => {
     window.addEventListener('resize', debounceSize);
 
     return () => window.removeEventListener('resize', debounceSize);
-  }, [id, showLoader, handleResize]);
-
-  if (showLoader) return <Preloader />;
+  }, [id, handleResize]);
 
   if (error) {
     return <Notification type="error" position="topRight" message={error} />;
