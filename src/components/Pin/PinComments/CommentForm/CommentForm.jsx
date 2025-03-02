@@ -1,6 +1,6 @@
 import style from './CommentForm.module.css';
-import { ReactComponent as SendIcon } from './img/send.svg';
 
+import { ReactComponent as SendIcon } from '@/assets/img/send.svg';
 import Button from '@/components/Button';
 
 export const CommentForm = () => (

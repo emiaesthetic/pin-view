@@ -7,7 +7,7 @@ import {
   reactionRequestError,
 } from './reactionSlice';
 
-import { API_URL } from '@/config/config';
+import { API_URL } from '@/services/config';
 
 function* fetchReaction(action) {
   const token = yield select(state => state.token.token);

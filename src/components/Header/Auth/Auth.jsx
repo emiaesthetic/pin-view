@@ -3,13 +3,13 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import style from './Auth.module.css';
-import { ReactComponent as LoginIcon } from './img/login.svg';
 import UserMenu from './UserMenu';
 
+import { ReactComponent as LoginIcon } from '@/assets/img/login.svg';
 import Button from '@/components/Button';
 import Notification from '@/components/Notification';
-import authUrl from '@/config/authConfig';
 import useAuth from '@/hooks/useAuth';
+import authUrl from '@/services/authConfig';
 
 export const Auth = ({ clearSearch }) => {
   const { user, error, clearAuth } = useAuth();

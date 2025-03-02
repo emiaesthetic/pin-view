@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-import { ReactComponent as FavoriteIcon } from './img/favorite.svg';
 import style from './PinButtonsGroup.module.css';
 
+import { ReactComponent as FavoriteIcon } from '@/assets/img/favorite.svg';
 import Button from '@/components/Button';
 
 export const PinButtonsGroup = ({ likes, liked, onLike, onDownload }) => (

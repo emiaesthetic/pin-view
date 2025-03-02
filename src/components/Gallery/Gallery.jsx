@@ -18,12 +18,12 @@ import { photosRequest } from '@/store/gallery/gallerySlice';
 export const Gallery = () => {
   const { data, error, loading, currentPage, totalPages, isCompleted } =
     useGallery();
-  const { scrollPosition, setScrollPosition } = useScroll();
   const { likeError, handleLike } = useLike();
   const { showLoader } = useLoader(loading);
+  const { scrollPosition, setScrollPosition } = useScroll();
 
-  const dispatch = useDispatch();
   const triggerRef = useRef();
+  const dispatch = useDispatch();
 
   const breakpointColumnsObj = {
     default: 5,

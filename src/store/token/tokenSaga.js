@@ -13,7 +13,7 @@ import {
   SECRET_KEY,
   REDIRECT_URI,
   GRANT_TYPE,
-} from '@/config/config';
+} from '@/services/config';
 
 function* fetchToken() {
   const code = yield select(state => state.token.code);

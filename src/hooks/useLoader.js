@@ -10,6 +10,7 @@ const useLoader = isLoading => {
       const timer = setTimeout(() => {
         setShowLoader(false);
       }, 500);
+
       return () => clearTimeout(timer);
     }
   }, [isLoading]);

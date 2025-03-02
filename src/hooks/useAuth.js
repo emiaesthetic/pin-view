@@ -23,6 +23,7 @@ const useAuth = () => {
   } = useSelector(state => state.token);
 
   const error = tokenError || authError || null;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

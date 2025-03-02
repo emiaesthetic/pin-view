@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { ReactComponent as SearchIcon } from './img/search.svg';
 import style from './Search.module.css';
 
+import { ReactComponent as SearchIcon } from '@/assets/img/search.svg';
 import Button from '@/components/Button';
 import { searchRequest } from '@/store/gallery/gallerySlice';
 

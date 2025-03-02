@@ -3,21 +3,21 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { ReactComponent as CloseIcon } from './img/close.svg';
-import { ReactComponent as ErrorIcon } from './img/error.svg';
-import { ReactComponent as NeutralIcon } from './img/neutral.svg';
 import style from './Notification.module.css';
 
+import { ReactComponent as CloseIcon } from '@/assets/img/close.svg';
+import { ReactComponent as ErrorIcon } from '@/assets/img/error.svg';
+import { ReactComponent as NeutralIcon } from '@/assets/img/neutral.svg';
 import Button from '@/components/Button';
 
-const notificationList = {
+const notifications = {
   error: { title: 'Error toast', Icon: ErrorIcon },
   neutral: { title: 'Neutral toast', Icon: NeutralIcon },
 };
 
 export const Notification = ({ type, position, message }) => {
   const [isShow, setIsShow] = useState(false);
-  const { title, Icon } = notificationList[type];
+  const { title, Icon } = notifications[type];
 
   useEffect(() => {
     if (message) {
@@ -25,7 +25,7 @@ export const Notification = ({ type, position, message }) => {
 
       const timer = setTimeout(() => {
         setIsShow(false);
-      }, 10000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }

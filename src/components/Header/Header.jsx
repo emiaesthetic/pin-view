@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -11,14 +11,17 @@ import Search from './Search';
 import Layout from '@/components/Layout';
 import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import { tokenRequest } from '@/store/token/tokenSlice';
+import debounceRaf from '@/utils/debounce';
 
 export const Header = () => {
   const [search, setSearch] = useState('');
-  const [searchParams] = useSearchParams();
   const { setHeaderHeight } = useHeaderHeight();
-  const headerRef = useRef(null);
-  const dispatch = useDispatch();
+
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const headerRef = useRef(null);
 
   useEffect(() => {
     const code = searchParams.get('code');
@@ -28,17 +31,18 @@ export const Header = () => {
     }
   }, [searchParams, navigate, dispatch]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleResize = () => {
       if (headerRef.current) {
         setHeaderHeight(headerRef.current.offsetHeight);
       }
     };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    const debounceResize = debounceRaf(handleResize);
+    debounceResize();
+    window.addEventListener('resize', debounceResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', debounceResize);
   }, [setHeaderHeight]);
 
   return (

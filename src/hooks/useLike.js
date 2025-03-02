@@ -4,6 +4,7 @@ import { reactionRequest } from '@/store/reaction/reactionSlice';
 
 const useLike = () => {
   const likeError = useSelector(state => state.reaction.error);
+
   const dispatch = useDispatch();
 
   const handleLike = (id, liked) => {

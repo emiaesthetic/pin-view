@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
 import style from './ComeBack.module.css';
-import { ReactComponent as ArrowIcon } from './img/arrow.svg';
 
+import { ReactComponent as ArrowIcon } from '@/assets/img/arrow.svg';
 import Button from '@/components/Button';
 
 export const ComeBack = ({ onClick }) => (

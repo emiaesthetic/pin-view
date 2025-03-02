@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-import { ReactComponent as LogoutIcon } from './img/logout.svg';
 import style from './UserMenu.module.css';
 
+import { ReactComponent as LogoutIcon } from '@/assets/img/logout.svg';
 import Button from '@/components/Button';
 
 export const UserMenu = ({ user, onLogout }) => (

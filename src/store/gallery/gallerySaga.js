@@ -10,7 +10,7 @@ import {
   searchRequest,
 } from './gallerySlice';
 
-import { API_URL, ACCESS_KEY } from '@/config/config';
+import { API_URL, ACCESS_KEY } from '@/services/config';
 import transformPinData from '@/utils/transformPinData';
 
 function* fetchPhotos() {

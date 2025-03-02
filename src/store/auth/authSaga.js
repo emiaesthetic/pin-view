@@ -3,7 +3,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { authRequest, authRequestSuccess, authRequestError } from './authSlice';
 
-import { API_URL } from '@/config/config';
+import { API_URL } from '@/services/config';
 
 function* fetchAuth() {
   const token = yield select(state => state.token.token);

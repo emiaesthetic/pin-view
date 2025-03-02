@@ -3,7 +3,7 @@ import { put, select, takeLatest } from 'redux-saga/effects';
 
 import { pinRequest, pinRequestSuccess, pinRequestError } from './pinSlice';
 
-import { API_URL, ACCESS_KEY } from '@/config/config';
+import { API_URL, ACCESS_KEY } from '@/services/config';
 import transformPinData from '@/utils/transformPinData';
 
 function* fetchPin(action) {
