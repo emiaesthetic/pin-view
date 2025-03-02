@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import style from './Search.module.css';
@@ -9,13 +9,16 @@ import Button from '@/components/Button';
 import { searchRequest } from '@/store/gallery/gallerySlice';
 
 export const Search = ({ search, setSearch }) => {
+  const storeSearch = useSelector(state => state.gallery.search);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(searchRequest(search));
-    navigate(`/photos/${search}`);
+    if (search && search !== storeSearch) {
+      dispatch(searchRequest(search));
+      navigate(`/photos/${search}`);
+    }
   };
 
   return (
