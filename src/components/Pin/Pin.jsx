@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -76,6 +76,10 @@ export const Pin = () => {
 
     return () => window.removeEventListener('resize', debounceSize);
   }, [id, handleResize]);
+
+  useEffect(() => {
+    document.title = photo?.description || 'Pin Page';
+  }, [photo]);
 
   if (error) {
     return <Notification type="error" position="topRight" message={error} />;

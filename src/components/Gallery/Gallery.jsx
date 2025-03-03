@@ -55,6 +55,10 @@ export const Gallery = () => {
     return () => observer.disconnect();
   }, [data.length, dispatch]);
 
+  useEffect(() => {
+    document.title = 'Pin View';
+  }, []);
+
   if (isCompleted && error) {
     return <Notification type="error" position="topRight" message={error} />;
   }
