@@ -22,7 +22,7 @@ export const Thumbnail = ({
         width="300"
         height="300"
         loading="lazy"
-        alt={description}
+        alt={description || 'Pin'}
       />
     </Link>
 

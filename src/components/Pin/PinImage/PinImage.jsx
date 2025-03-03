@@ -5,7 +5,7 @@ import style from './PinImage.module.css';
 
 export const PinImage = ({ img, description, color = '#fff', onComeBack }) => (
   <div className={style.wrapper} style={{ backgroundColor: color }}>
-    <img className={style.img} src={img} alt={description} />
+    <img className={style.img} src={img} alt={description || 'Pin'} />
     <ComeBack onClick={onComeBack} />
   </div>
 );
