@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -18,17 +18,48 @@ export const Auth = ({ clearSearch }) => {
   const { showLoader } = useLoader(loading);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
+
   const handleLogout = () => {
     clearSearch();
     clearAuth();
     setMenuIsOpen(false);
   };
 
+  const handleClick = ({ target }) => {
+    if (
+      menuIsOpen &&
+      menuRef.current &&
+      !menuRef.current.contains(target) &&
+      buttonRef.current &&
+      !buttonRef.current.contains(target)
+    ) {
+      setMenuIsOpen(false);
+    }
+  };
+
+  const handleEscape = ({ key }) => {
+    if (menuIsOpen && key === 'Escape') {
+      setMenuIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', handleClick);
+    window.addEventListener('keydown', handleEscape);
+    return () => {
+      window.removeEventListener('click', handleClick);
+      window.removeEventListener('keydown', handleEscape);
+    };
+  });
+
   const renderContent = () => {
     if (user) {
       return (
         <>
           <Button
+            ref={buttonRef}
             kind="icon"
             title={user.username}
             onClick={() => setMenuIsOpen(!menuIsOpen)}
@@ -39,7 +70,9 @@ export const Auth = ({ clearSearch }) => {
               alt={`Profile photo of ${user.username}`}
             />
           </Button>
-          {menuIsOpen && <UserMenu user={user} onLogout={handleLogout} />}
+          {menuIsOpen && (
+            <UserMenu ref={menuRef} user={user} onLogout={handleLogout} />
+          )}
         </>
       );
     }
