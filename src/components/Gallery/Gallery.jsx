@@ -8,9 +8,9 @@ import Item from './Item';
 
 import Layout from '@/components/Layout';
 import Notification from '@/components/Notification';
-import { useScroll } from '@/context/ScrollContext';
 import useGallery from '@/hooks/useGallery';
 import useLike from '@/hooks/useLike';
+import { useScroll } from '@/providers/scroll';
 import { photosRequest } from '@/store/gallery/gallerySlice';
 
 export const Gallery = () => {

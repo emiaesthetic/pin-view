@@ -12,9 +12,9 @@ import PinImage from './PinImage';
 
 import Layout from '@/components/Layout';
 import Notification from '@/components/Notification';
-import { useHeaderHeight } from '@/context/HeaderHeightContext';
 import useLike from '@/hooks/useLike';
 import usePin from '@/hooks/usePin';
+import { useHeaderHeight } from '@/providers/headerHeight';
 import { resetPin } from '@/store/pin/pinSlice';
 import debounceRaf from '@/utils/debounce';
 

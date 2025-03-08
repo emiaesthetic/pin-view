@@ -6,8 +6,8 @@ import Header from '@/components/Header';
 import Main from '@/components/Main';
 import PageNotFound from '@/components/PageNotFound';
 import Pin from '@/components/Pin';
-import { HeaderHeightProvider } from '@/context/HeaderHeightContext';
-import { ScrollProvider } from '@/context/ScrollContext';
+import { HeaderHeightProvider } from '@/providers/headerHeight';
+import { ScrollProvider } from '@/providers/scroll';
 import { getToken } from '@/services/tokenStorage';
 import { updateToken } from '@/store/token/tokenSlice';
 

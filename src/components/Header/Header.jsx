@@ -9,7 +9,7 @@ import Logo from './Logo';
 import Search from './Search';
 
 import Layout from '@/components/Layout';
-import { useHeaderHeight } from '@/context/HeaderHeightContext';
+import { useHeaderHeight } from '@/providers/headerHeight';
 import { tokenRequest } from '@/store/token/tokenSlice';
 import debounceRaf from '@/utils/debounce';
 
